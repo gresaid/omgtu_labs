@@ -7,7 +7,21 @@ def calculate(s: str) -> int:
         elif op == "*":
             stack.append(stack.pop() * num)
         elif op == "/":
-            stack.append(int(stack.pop() / num))
+            if num != 0:
+                stack.append(int(stack.pop() / num))
+            elif num == 0:
+                raise ValueError("division by zero")
+
+    balance = 0
+    for char in s:
+        if char == "(":
+            balance += 1
+        elif char == ")":
+            balance -= 1
+        if balance < 0:
+            raise ValueError("unbalance")
+    if balance != 0:
+        raise ValueError("unbalance")
 
     stack = []
     num = 0
@@ -41,5 +55,6 @@ def calculate(s: str) -> int:
     return sum(stack)
 
 
-print(calculate("150 * (2 - 1)"))
-print(calculate("-(3 + 4)"))  # -7
+# print(calculate(")2+2("))  # -7
+# print(calculate("2 + (2 / 0) + ) + 2"))
+# print(calculate("2 + (2 / ( 4 - 4 ))"))
