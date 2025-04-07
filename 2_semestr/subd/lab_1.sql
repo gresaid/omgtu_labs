@@ -1,5 +1,4 @@
--- Active: 1744025315676@@127.0.0.1@5432@db-books
----1.0 Создание
+-- Active: 1744030364581@@127.0.0.1@5432@db-books
 -- Создание таблицы Авторы (Authors)
 CREATE TABLE Authors (
     Code_author INT PRIMARY KEY,
