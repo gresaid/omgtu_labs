@@ -1,0 +1,135 @@
+---
+
+
+- name: Configure Ingress resources
+  hosts: master
+  become: yes
+
+  vars:
+    namespace: ansible
+
+  tasks:
+    - name: Create ingress manifests directory
+      file:
+        path: /tmp/ingress-manifests
+        state: directory
+        mode: "0755"
+
+    # Настройка /etc/hosts для локального доступа к Ingress-хостам
+    - name: Get master node IP
+      shell: hostname -I | awk '{print $1}'
+      register: master_ip
+      changed_when: false
+
+    - name: Configure hosts file for local domain resolution
+      lineinfile:
+        path: /etc/hosts
+        regexp: "{{ master_ip.stdout_lines[0] }}\\s+.*?({{ item }}).*"
+        line: "{{ master_ip.stdout_lines[0] }} {{ item }}"
+        state: present
+      loop:
+        - helloworld.k8s.cluster
+        - myapp.k8s.cluster
+        - dashboard.k8s.cluster
+
+    # Создание Ingress для приложения 1
+    - name: Create Ingress manifest for Application 1
+      copy:
+        dest: /tmp/ingress-manifests/app1-ingress.yaml
+        content: |
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          metadata:
+            name: app1-ingress
+            namespace: {{ namespace }}
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          spec:
+            rules:
+            - host: helloworld.k8s.cluster
+              http:
+                paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: test-service
+                      port:
+                        number: 80
+
+    - name: Apply Ingress for Application 1
+      shell: microk8s kubectl apply -f /tmp/ingress-manifests/app1-ingress.yaml
+      register: app1_ingress_result
+      changed_when: "'created' in app1_ingress_result.stdout or 'configured' in app1_ingress_result.stdout"
+
+    # Создание Ingress для приложения 2
+    - name: Create Ingress manifest for Application 2
+      copy:
+        dest: /tmp/ingress-manifests/app2-ingress.yaml
+        content: |
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          metadata:
+            name: app2-ingress
+            namespace: {{ namespace }}
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          spec:
+            rules:
+            - host: myapp.k8s.cluster
+              http:
+                paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: nginx-hello-service
+                      port:
+                        number: 80
+
+    - name: Apply Ingress for Application 2
+      shell: microk8s kubectl apply -f /tmp/ingress-manifests/app2-ingress.yaml
+      register: app2_ingress_result
+      changed_when: "'created' in app2_ingress_result.stdout or 'configured' in app2_ingress_result.stdout"
+
+    # Создание Ingress для Dashboard
+    - name: Create Ingress manifest for Dashboard
+      copy:
+        dest: /tmp/ingress-manifests/dashboard-ingress.yaml
+        content: |
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          metadata:
+            name: dashboard-ingress
+            namespace: kube-system
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+              nginx.ingress.kubernetes.io/secure-backends: "true"
+          spec:
+            rules:
+            - host: dashboard.k8s.cluster
+              http:
+                paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: kubernetes-dashboard
+                      port:
+                        number: 443
+
+    - name: Apply Ingress for Dashboard
+      shell: microk8s kubectl apply -f /tmp/ingress-manifests/dashboard-ingress.yaml
+      register: dashboard_ingress_result
+      changed_when: "'created' in dashboard_ingress_result.stdout or 'configured' in dashboard_ingress_result.stdout"
+
+    # Вывод информации об Ingress-ресурсах
+    - name: Get all Ingress resources
+      shell: microk8s kubectl get ingress --all-namespaces
+      register: ingress_status
+      changed_when: false
+
+    - name: Show Ingress status
+      debug:
+        var: ingress_status.stdout_lines

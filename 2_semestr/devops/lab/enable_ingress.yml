@@ -1,0 +1,20 @@
+---
+
+
+- name: Configure Ingress on master node
+  hosts: master
+  become: yes
+
+  tasks:
+    - name: Enable Ingress addon in MicroK8s
+      shell: microk8s enable ingress
+      register: ingress_result
+      changed_when: "'Ingress is enabled' in ingress_result.stdout"
+
+    - name: Wait for Ingress controller to start
+      shell: microk8s kubectl get pods -n ingress -l name=nginx-ingress-microk8s
+      register: ingress_pod_check
+      until: "'Running' in ingress_pod_check.stdout"
+      retries: 1
+      delay: 10
+      changed_when: false
