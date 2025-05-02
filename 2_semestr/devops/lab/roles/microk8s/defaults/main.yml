@@ -1,0 +1,20 @@
+namespace: demo-apps
+postgres_db: timestampdb
+postgres_user: postgres
+postgres_password: postgrespassword
+postgres_data_path: /mnt/data/postgres
+postgres_storage_size: 1Gi
+rabbitmq_user: guest
+rabbitmq_password: guest
+service_a_image: localhost:32000/service-a:latest
+service_b_image: localhost:32000/service-b:latest
+service_a_replicas: 1
+service_b_replicas: 1
+base_domain: k8s.cluster
+app1_hostname: helloworld.{{ base_domain }}
+app2_hostname: myapp.{{ base_domain }}
+dashboard_hostname: dashboard.{{ base_domain }}
+postgres_hostname: postgres.{{ base_domain }}
+rabbitmq_hostname: rabbitmq.{{ base_domain }}
+service_a_hostname: service-a.{{ base_domain }}
+service_b_hostname: service-b.{{ base_domain }}

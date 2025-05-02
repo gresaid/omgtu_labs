@@ -1,0 +1,20 @@
+---
+- name: Включение dashboard
+  shell: microk8s enable dashboard
+  register: dashboard_result
+  changed_when: dashboard_result.rc == 0
+
+- name: Включение dns
+  shell: microk8s enable dns
+  register: dns_result
+  changed_when: dns_result.rc == 0
+
+- name: Включение ingress
+  shell: microk8s enable ingress
+  register: ingress_result
+  changed_when: ingress_result.rc == 0
+
+- name: Создание namespace
+  shell: microk8s kubectl create namespace {{ namespace }}
+  register: ns_created
+  failed_when: ns_created.rc != 0 and "AlreadyExists" not in ns_created.stderr

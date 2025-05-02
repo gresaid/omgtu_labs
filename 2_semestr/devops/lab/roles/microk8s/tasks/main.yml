@@ -1,0 +1,46 @@
+---
+- name: Установка зависимостей
+  apt:
+    name: snapd
+    state: present
+    update_cache: true
+
+- name: Установка microk8s
+  snap:
+    name: microk8s
+    classic: true
+
+- name: Добавление пользователя в группу microk8s
+  user:
+    name: "{{ ansible_user }}"
+    groups: microk8s
+    append: true
+
+- name: Установка alias
+  shell: snap alias microk8s.kubectl kubectl
+  args:
+    creates: /snap/bin/kubectl
+
+- name: Включение необходимых аддонов на мастер-узле
+  include_tasks: addons.yml
+  when: inventory_hostname in groups['master']
+
+- name: Настройка PostgreSQL на мастер-узле
+  include_tasks: postgresql.yml
+  when: inventory_hostname in groups['master']
+
+- name: Настройка RabbitMQ на мастер-узле
+  include_tasks: rabbitmq.yml
+  when: inventory_hostname in groups['master']
+
+- name: Настройка Registry на мастер-узле
+  include_tasks: registry.yml
+  when: inventory_hostname in groups['master']
+
+- name: Настройка Service-A и Service-B на мастер-узле
+  include_tasks: services.yml
+  when: inventory_hostname in groups['master']
+
+- name: Настройка Ingress на мастер-узле
+  include_tasks: ingress.yml
+  when: inventory_hostname in groups['master']

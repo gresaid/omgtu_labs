@@ -1,0 +1,12 @@
+---
+- name: Включение registry
+  shell: microk8s enable registry
+  register: registry_result
+  changed_when: registry_result.rc == 0
+
+- name: Ожидание готовности registry
+  shell: microk8s kubectl wait --for=condition=ready pod -l app=registry -n container-registry --timeout=120s
+  register: registry_wait
+  changed_when: false
+  failed_when: registry_wait.rc != 0
+  when: registry_result.rc == 0

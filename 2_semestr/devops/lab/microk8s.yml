@@ -1,0 +1,6 @@
+---
+- name: Установка и настройка MicroK8s кластера
+  hosts: k8s
+  become: true
+  roles:
+    - microk8s

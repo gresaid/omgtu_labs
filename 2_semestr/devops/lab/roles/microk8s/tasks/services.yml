@@ -1,0 +1,17 @@
+- name: Создание Deployment для Service A
+  template:
+    src: service-a-deployment.yaml.j2
+    dest: /tmp/k8s_resources/service-a-deployment.yaml
+
+- name: Создание Deployment для Service B
+  template:
+    src: service-b-deployment.yaml.j2
+    dest: /tmp/k8s_resources/service-b-deployment.yaml
+
+- name: Применение конфигураций сервисов
+  shell: "microk8s kubectl apply -f /tmp/k8s_resources/{{ item }}"
+  loop:
+    - service-a-deployment.yaml
+    - service-b-deployment.yaml
+  register: apply_result
+  changed_when: apply_result.rc == 0

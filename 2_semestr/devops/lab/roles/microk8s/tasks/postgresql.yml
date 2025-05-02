@@ -1,0 +1,54 @@
+---
+- name: Создание директории для данных PostgreSQL
+  file:
+    path: "{{ postgres_data_path }}"
+    state: directory
+    mode: "0777"
+
+- name: Создание директории для YAML-файлов
+  file:
+    path: /tmp/k8s_resources
+    state: directory
+    mode: "0755"
+
+- name: Создание ConfigMap для PostgreSQL
+  template:
+    src: postgres-configmap.yaml.j2
+    dest: /tmp/k8s_resources/postgres-configmap.yaml
+
+- name: Создание Secret для PostgreSQL
+  template:
+    src: postgres-secret.yaml.j2
+    dest: /tmp/k8s_resources/postgres-secret.yaml
+
+- name: Создание PV для PostgreSQL
+  template:
+    src: postgres-pv.yaml.j2
+    dest: /tmp/k8s_resources/postgres-pv.yaml
+
+- name: Создание PVC для PostgreSQL
+  template:
+    src: postgres-pvc.yaml.j2
+    dest: /tmp/k8s_resources/postgres-pvc.yaml
+
+- name: Создание Deployment для PostgreSQL
+  template:
+    src: postgres-deployment.yaml.j2
+    dest: /tmp/k8s_resources/postgres-deployment.yaml
+
+- name: Создание Service для PostgreSQL
+  template:
+    src: postgres-service.yaml.j2
+    dest: /tmp/k8s_resources/postgres-service.yaml
+
+- name: Применение YAML файлов для PostgreSQL
+  shell: "microk8s kubectl apply -f /tmp/k8s_resources/{{ item }}"
+  loop:
+    - postgres-configmap.yaml
+    - postgres-secret.yaml
+    - postgres-pv.yaml
+    - postgres-pvc.yaml
+    - postgres-deployment.yaml
+    - postgres-service.yaml
+  register: apply_result
+  changed_when: apply_result.rc == 0

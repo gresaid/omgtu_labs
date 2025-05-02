@@ -45,16 +45,16 @@
       debug:
         var: join_command
 
-- name: Join worker to cluster
-  hosts: worker
-  become: yes
+# - name: Join worker to cluster
+#   hosts: worker
+#   become: yes
 
-  tasks:
-    - name: Join worker to cluster
-      shell: "{{ hostvars[groups['masters'][0]].join_command }}"
-      register: join_output
-      failed_when: "'already known to dqlite' not in join_output.stderr and join_output.rc != 0"
-      changed_when: "'already known to dqlite' not in join_output.stderr"
+#   tasks:
+#     - name: Join worker to cluster
+#       shell: "{{ hostvars[groups['masters'][0]].join_command }}"
+#       register: join_output
+#       failed_when: "'already known to dqlite' not in join_output.stderr and join_output.rc != 0"
+#       changed_when: "'already known to dqlite' not in join_output.stderr"
 
 - name: Включение аддонов и настройка приложений
   hosts: master
@@ -70,6 +70,8 @@
 
     - name: Включение ingress
       shell: microk8s enable ingress
+    - name: Включение registry
+      shell: microk8s enable registry:size=1Gi
 
     - name: Создание namespace
       shell: microk8s kubectl create namespace {{ namespace }}
@@ -196,7 +198,6 @@
                       port:
                         number: 80
           ---
-          # Отдельный Ingress для дашборда в правильном namespace
           apiVersion: networking.k8s.io/v1
           kind: Ingress
           metadata:

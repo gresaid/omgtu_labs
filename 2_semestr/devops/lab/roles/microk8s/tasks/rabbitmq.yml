@@ -1,0 +1,18 @@
+---
+- name: Создание Deployment для RabbitMQ
+  template:
+    src: rabbitmq-deployment.yaml.j2
+    dest: /tmp/k8s_resources/rabbitmq-deployment.yaml
+
+- name: Создание Service для RabbitMQ
+  template:
+    src: rabbitmq-service.yaml.j2
+    dest: /tmp/k8s_resources/rabbitmq-service.yaml
+
+- name: Применение YAML файлов для RabbitMQ
+  shell: "microk8s kubectl apply -f /tmp/k8s_resources/{{ item }}"
+  loop:
+    - rabbitmq-deployment.yaml
+    - rabbitmq-service.yaml
+  register: apply_result
+  changed_when: apply_result.rc == 0

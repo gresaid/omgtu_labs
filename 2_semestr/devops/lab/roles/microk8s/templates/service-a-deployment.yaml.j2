@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a
+  namespace: {{ namespace }}
+spec:
+  replicas: {{ service_a_replicas }}
+  selector:
+    matchLabels:
+      app: service-a
+  template:
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+      - name: service-a
+        image: {{ service_a_image }}
+        imagePullPolicy: Always
+        env:
+        - name: RABBITMQ_HOST
+          value: "rabbitmq-service"
+        - name: RABBITMQ_PORT
+          value: "5672"
+        - name: RABBITMQ_USER
+          value: "{{ rabbitmq_user }}"
+        - name: RABBITMQ_PASSWORD
+          value: "{{ rabbitmq_password }}"
