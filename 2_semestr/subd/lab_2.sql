@@ -1,105 +1,184 @@
--- Active: 1744025315676@@127.0.0.1@5432@db-books
--- 1. Выбор всех полей из таблицы Deliveries с изменением порядка столбцов
-SELECT Name_delivery, INN, Phone, Address, Code_delivery
-FROM Deliveries;
+-- active: 1744025315676@@127.0.0.1@5432@db-books
+-- 1. выбор всех полей из таблицы deliveries с изменением порядка столбцов
+select
+    name_delivery,
+    inn,
+    phone,
+    address,
+    code_delivery
+from
+    deliveries;
 
--- 2. Выбор названий книг, страниц и имен авторов
-SELECT b.Title_book, b.Pages, a.Name_author
-FROM Books b
-JOIN Authors a ON b.Code_author = a.Code_author;
+-- 2. выбор названий книг, страниц и имен авторов
+select
+    b.title_book,
+    b.pages,
+    a.name_author
+from
+    books b
+    join authors a on b.code_author = a.code_author;
 
--- 3. Выбор компаний с названиями, начинающимися на 'ОАО'
-SELECT Name_company, Phone, INN
-FROM Deliveries
-WHERE Name_company LIKE 'ОАО%';
+-- 3. выбор компаний с названиями, начинающимися на 'оао'
+select
+    name_company,
+    phone,
+    inn
+from
+    deliveries
+where
+    name_company like 'оао%';
 
--- 4. Вывод издательств не из Москвы
-SELECT Publish
-FROM Publishing_house
-WHERE City != 'Москва';
+-- 4. вывод издательств не из москвы
+select
+    publish
+from
+    publishing_house
+where
+    city != 'москва';
 
--- 5. Вывод книг, выпущенных всеми издательствами, кроме 'Питер-Софт'(Росмэн)
-SELECT b.Title_book
-FROM Books b
-JOIN Publishing_house p ON b.Code_publish = p.Code_publish
-WHERE p.Publish != 'Росмэн';
+-- 5. вывод книг, выпущенных всеми издательствами, кроме 'питер-софт'(росмэн)
+select
+    b.title_book
+from
+    books b
+    join publishing_house p on b.code_publish = p.code_publish
+where
+    p.publish != 'росмэн';
 
--- 6. Вывод авторов с датой рождения в диапазоне '1821-11-11' AND '1828-09-09'
-SELECT Name_author
-FROM Authors
-WHERE Birthday BETWEEN '1821-11-11' AND '1828-09-09';
+-- 6. вывод авторов с датой рождения в диапазоне '1821-11-11' and '1828-09-09'
+select
+    name_author
+from
+    authors
+where
+    birthday between '1821-11-11'
+    and '1828-09-09';
 
--- 7. Вывод книг с количеством страниц от 200 до 300(300-400)
-SELECT Title_book, Pages
-FROM Books
-WHERE Pages BETWEEN 300 AND 400;
+-- 7. вывод книг с количеством страниц от 200 до 300(300-400)
+select
+    title_book,
+    pages
+from
+    books
+where
+    pages between 300
+    and 400;
 
--- 8. Вывод авторов, фамилии которых начинаются на 'В'-'Г'(Д К)
-SELECT Name_author
-FROM Authors
-WHERE Name_author >= 'Д' AND Name_author < 'К';
+-- 8. вывод авторов, фамилии которых начинаются на 'в'-'г'(д к)
+select
+    name_author
+from
+    authors
+where
+    name_author >= 'д'
+    and name_author < 'к';
 
--- 9. Вывод названий книг и количества, поставленных поставщиками с кодами 3, 7, 9, 11 (1, 3, 5)
-SELECT b.Title_book, p.Amount
-FROM Books b
-JOIN Purchases p ON b.Code_book = p.Code_book
-WHERE p.Code_delivery IN (1, 3, 5);
+-- 9. вывод названий книг и количества, поставленных поставщиками с кодами 3, 7, 9, 11 (1, 3, 5)
+select
+    b.title_book,
+    p.amount
+from
+    books b
+    join purchases p on b.code_book = p.code_book
+where
+    p.code_delivery in (1, 3, 5);
 
--- 10. Вывод книг, выпущенных издательствами 'Питер-Софт', 'Альфа', 'Наука' ('ЭКСМО', 'Росмэн', 'МИФ');
-SELECT b.Title_book
-FROM Books b
-JOIN Publishing_house p ON b.Code_publish = p.Code_publish
-WHERE p.Publish IN ('ЭКСМО', 'Росмэн', 'МИФ');
+-- 10. вывод книг, выпущенных издательствами 'питер-софт', 'альфа', 'наука' ('эксмо', 'росмэн', 'миф');
+select
+    b.title_book
+from
+    books b
+    join publishing_house p on b.code_publish = p.code_publish
+where
+    p.publish in ('эксмо', 'росмэн', 'миф');
 
--- 11. Вывод авторов, фамилии которых начинаются на 'К' (Д)
-SELECT Name_author
-FROM Authors
-WHERE Name_author LIKE 'Д%';
+-- 11. вывод авторов, фамилии которых начинаются на 'к' (д)
+select
+    name_author
+from
+    authors
+where
+    name_author like 'д%';
 
--- 12. Выбор компаний с названиями, оканчивающимися на 'ский' ??????????
-SELECT Name_company
-FROM Deliveries
-WHERE Name_company LIKE '%ед';
+-- 12. выбор компаний с названиями, оканчивающимися на 'ский' ??????????
+select
+    name_company
+from
+    deliveries
+where
+    name_company like '%ед';
 
--- 13. Вывод издательств, содержащих в названии 'софт' (мен)
-SELECT Publish
-FROM Publishing_house
-WHERE LOWER(Publish) LIKE '%мэн%';
+-- 13. вывод издательств, содержащих в названии 'софт' (мен)
+select
+    publish
+from
+    publishing_house
+where
+    lower(publish) like '%мэн%';
 
--- 14. Выбор кодов поставщиков, дат заказов и названий книг с условиями по количеству и цене
-SELECT p.Code_delivery, p.Date_order, b.Title_book
-FROM Purchases p
-JOIN Books b ON p.Code_book = b.Code_book
-WHERE p.Amount > 100 OR (p.Cost BETWEEN CAST(200 AS MONEY) AND CAST(500 AS MONEY));
+-- 14. выбор кодов поставщиков, дат заказов и названий книг с условиями по количеству и цене
+select
+    p.code_delivery,
+    p.date_order,
+    b.title_book
+from
+    purchases p
+    join books b on p.code_book = b.code_book
+where
+    p.amount > 100
+    or (
+        p.cost between cast(200 as money)
+        and cast(500 as money)
+    );
 
--- 15. Вывод издательств, выпустивших книги, названия которых начинаются со слова 'Труды' в Новосибирске ('Война%' AND ph.City = 'Москва';)
-SELECT ph.Publish
-FROM Publishing_house ph
-JOIN Books b ON ph.Code_publish = b.Code_publish
-WHERE b.Title_book LIKE 'Война%' AND ph.City = 'Москва';
+-- 15. вывод издательств, выпустивших книги, названия которых начинаются со слова 'труды' в новосибирске ('война%' and ph.city = 'москва';)
+select
+    ph.publish
+from
+    publishing_house ph
+    join books b on ph.code_publish = b.code_publish
+where
+    b.title_book like 'война%'
+    and ph.city = 'москва';
 
--- 16. Вывод компаний-поставщиков и названий книг, поставленных в период 2002-2003 ( 2023-01-01' AND '2023-03-01')
-SELECT d.Name_company, b.Title_book
-FROM Deliveries d
-JOIN Purchases p ON d.Code_delivery = p.Code_delivery
-JOIN Books b ON p.Code_book = b.Code_book
-WHERE p.Date_order BETWEEN '2023-01-01' AND '2023-03-01';
+-- 16. вывод компаний-поставщиков и названий книг, поставленных в период 2002-2003 ( 2023-01-01' and '2023-03-01')
+select
+    d.name_company,
+    b.title_book
+from
+    deliveries d
+    join purchases p on d.code_delivery = p.code_delivery
+    join books b on p.code_book = b.code_book
+where
+    p.date_order between '2023-01-01'
+    and '2023-03-01';
 
--- 17. Вывод поставщиков книг издательства 'Питер'(Росмэн)
-SELECT DISTINCT d.Name_company
-FROM Deliveries d
-JOIN Purchases p ON d.Code_delivery = p.Code_delivery
-JOIN Books b ON p.Code_book = b.Code_book
-JOIN Publishing_house ph ON b.Code_publish = ph.Code_publish
-WHERE ph.Publish = 'Росмэн';
+-- 17. вывод поставщиков книг издательства 'питер'(росмэн)
+select
+    distinct d.name_company
+from
+    deliveries d
+    join purchases p on d.code_delivery = p.code_delivery
+    join books b on p.code_book = b.code_book
+    join publishing_house ph on b.code_publish = ph.code_publish
+where
+    ph.publish = 'росмэн';
 
--- 18. Вывод стоимости одной печатной страницы каждой книги и названий книг
-SELECT b.Title_book, CAST(p.Cost / b.Pages AS DECIMAL(10, 4)) AS cost_per_page
-FROM Books b
-JOIN Purchases p ON b.Code_book = p.Code_book;
+-- 18. вывод стоимости одной печатной страницы каждой книги и названий книг
+select
+    b.title_book,
+    cast(p.cost / b.pages as decimal(10, 4)) as cost_per_page
+from
+    books b
+    join purchases p on b.code_book = p.code_book;
 
--- 19. Вывод количества лет с момента рождения авторов и имен авторов
-SELECT
-    Name_author,
-    EXTRACT(YEAR FROM AGE(CURRENT_DATE, Birthday)) AS age_years
-FROM Authors;
+-- 19. вывод количества лет с момента рождения авторов и имен авторов
+select
+    name_author,
+    extract(
+        year
+        from
+            age(current_date, birthday)
+    ) as age_years
+from
+    authors;

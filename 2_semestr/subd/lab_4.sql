@@ -1,44 +1,71 @@
--- Active: 1744030364581@@127.0.0.1@5432@db-books
+-- active: 1744030364581@@127.0.0.1@5432@db-books
+--- оператор update
+-- 1. изменение значения поля pages на 300 для книг с определенными параметрами
+update
+    books
+set
+    pages = 300
+where
+    code_author = 56
+    and title_book = 'мемуары';
 
+-- 2. увеличение цены на 20% для заказов, оформленных в течение последнего месяца
+update
+    purchases
+set
+    cost = cost * 1.2
+where
+    date_order >= (current_date - interval '1 month');
 
---- Оператор UPDATE
+--- оператор insert
+-- 1. добавление новой записи в таблицу books с автоматическим определением кода
+insert into
+    books (
+        code_book,
+        title_book,
+        code_author,
+        pages,
+        code_publish
+    )
+values
+    (
+        (
+            select
+                coalesce(max(code_book), 0) + 1
+            from
+                books
+        ),
+        'наука. техника. инновации',
+        null,
+        null,
+        null
+    );
 
--- 1. Изменение значения поля Pages на 300 для книг с определенными параметрами
-UPDATE Books
-SET Pages = 300
-WHERE Code_author = 56 AND Title_book = 'Мемуары';
+-- 2. добавление новой записи в таблицу publishing_house
+insert into
+    publishing_house (code_publish, publish, city)
+values
+    (
+        (
+            select
+                coalesce(max(code_publish), 0) + 1
+            from
+                publishing_house
+        ),
+        'наука',
+        'москва'
+    );
 
--- 2. Увеличение цены на 20% для заказов, оформленных в течение последнего месяца
-UPDATE Purchases
-SET Cost = Cost * 1.2
-WHERE Date_order >= (CURRENT_DATE - INTERVAL '1 month');
+-- оператор delete
+-- 1. удаление записей с нулевым количеством книг в заказе
+delete from
+    purchases
+where
+    amount = 0;
 
---- Оператор INSERT
-
--- 1. Добавление новой записи в таблицу Books с автоматическим определением кода
-INSERT INTO Books (Code_book, Title_book, Code_author, Pages, Code_publish)
-VALUES (
-    (SELECT COALESCE(MAX(Code_book), 0) + 1 FROM Books),
-    'Наука. Техника. Инновации',
-    NULL,
-    NULL,
-    NULL
-);
-
--- 2. Добавление новой записи в таблицу Publishing_house
-INSERT INTO Publishing_house (Code_publish, Publish, City)
-VALUES (
-    (SELECT COALESCE(MAX(Code_publish), 0) + 1 FROM Publishing_house),
-    'Наука',
-    'Москва'
-);
-
--- Оператор DELETE
-
--- 1. Удаление записей с нулевым количеством книг в заказе
-DELETE FROM Purchases
-WHERE Amount = 0;
-
--- 2. Удаление записей без указания ИНН
-DELETE FROM Deliveries
-WHERE INN IS NULL OR TRIM(INN) = '';
+-- 2. удаление записей без указания инн
+delete from
+    deliveries
+where
+    inn is null
+    or trim(inn) = '';

@@ -1,31 +1,59 @@
--- Роль администратора базы данных
-CREATE ROLE db_admin;
-GRANT ALL PRIVILEGES ON DATABASE device_repair TO db_admin;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO db_admin;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO db_admin;
+-- роль администратора базы данных
+create role db_admin;
 
--- Роль мастера-ремонтника
-CREATE ROLE repair_master;
-GRANT SELECT ON masters TO repair_master;
-GRANT SELECT ON devices TO repair_master;
-GRANT SELECT, INSERT, UPDATE ON repairs TO repair_master;
+grant all privileges on database device_repair to db_admin;
 
--- Роль менеджера приемки
-CREATE ROLE reception_manager;
-GRANT SELECT ON masters TO reception_manager;
-GRANT SELECT ON devices TO reception_manager;
-GRANT SELECT, INSERT ON repairs TO reception_manager;
+grant all privileges on all tables in schema public to db_admin;
 
+grant all privileges on all sequences in schema public to db_admin;
 
--- Администратор базы данных
-CREATE USER admin_ivanov WITH PASSWORD 'secure_pass_123';
-GRANT db_admin TO admin_ivanov;
+-- роль мастера-ремонтника
+create role repair_master;
 
--- Мастера-ремонтники
-CREATE USER master_sidorov WITH PASSWORD 'master_pass_456';
-GRANT repair_master TO master_sidorov;
+grant
+select
+    on masters to repair_master;
 
+grant
+select
+    on devices to repair_master;
 
--- Менеджеры приемки
-CREATE USER manager_petrova WITH PASSWORD 'manager_pass_123';
-GRANT reception_manager TO manager_petrova;
+grant
+select
+,
+insert
+,
+update
+    on repairs to repair_master;
+
+-- роль менеджера приемки
+create role reception_manager;
+
+grant
+select
+    on masters to reception_manager;
+
+grant
+select
+    on devices to reception_manager;
+
+grant
+select
+,
+insert
+    on repairs to reception_manager;
+
+-- администратор базы данных
+create user admin_ivanov with password 'secure_pass_123';
+
+grant db_admin to admin_ivanov;
+
+-- мастера-ремонтники
+create user master_sidorov with password 'master_pass_456';
+
+grant repair_master to master_sidorov;
+
+-- менеджеры приемки
+create user manager_petrova with password 'manager_pass_123';
+
+grant reception_manager to manager_petrova;

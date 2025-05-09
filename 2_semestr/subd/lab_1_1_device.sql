@@ -1,59 +1,59 @@
--- Active: 1744030364581@@127.0.0.1@5432@device_repair
-CREATE DATABASE device_repair;
+-- active: 1744030364581@@127.0.0.1@5432@device_repair
+create database device_repair;
 
 
---- 1. Инициализация
--- Таблица мастеров
-CREATE TABLE masters (
-    master_id SERIAL PRIMARY KEY,          -- Код мастера
-    last_name VARCHAR(100) NOT NULL,       -- Фамилия мастера
-    first_name VARCHAR(100) NOT NULL,      -- Имя мастера
-    middle_name VARCHAR(100),              -- Отчество мастера
-    qualification_rank INTEGER NOT NULL,   -- Разряд мастера
-    hire_date DATE NOT NULL                -- Дата приема на работу
+--- 1. инициализация
+-- таблица мастеров
+create table masters (
+    master_id serial primary key,          -- код мастера
+    last_name varchar(100) not null,       
+    first_name varchar(100) not null,     
+    middle_name varchar(100),             
+    qualification_rank integer not null,   -- разряд мастера
+    hire_date date not null                -- дата приема на работу
 );
 
--- Таблица приборов
-CREATE TABLE devices (
-    device_id SERIAL PRIMARY KEY,          -- Код прибора
-    device_name VARCHAR(200) NOT NULL,     -- Название прибора
-    device_type VARCHAR(100) NOT NULL,     -- Тип прибора
-    manufacture_date DATE                  -- Дата производства
+-- таблица приборов
+create table devices (
+    device_id serial primary key,          -- код прибора
+    device_name varchar(200) not null,    
+    device_type varchar(100) not null,    
+    manufacture_date date                  -- дата производства
 );
 
--- Таблица ремонтов
-CREATE TABLE repairs (
-    repair_id SERIAL PRIMARY KEY,           -- Код ремонта
-    device_in_repair_id VARCHAR(50) NOT NULL, -- Код прибора в ремонте
-    device_id INTEGER REFERENCES devices(device_id), -- Код прибора (внешний ключ)
-    master_id INTEGER REFERENCES masters(master_id), -- Код мастера (внешний ключ)
-    owner_full_name VARCHAR(255) NOT NULL,  -- ФИО владельца прибора
-    receipt_date DATE NOT NULL,             -- Дата приема в ремонт
-    malfunction_type VARCHAR(200) NOT NULL, -- Вид поломки
-    repair_cost DECIMAL(10, 2) NOT NULL     -- Стоимость ремонта
+-- таблица ремонтов
+create table repairs (
+    repair_id serial primary key,           -- код ремонта
+    device_in_repair_id varchar(50) not null, -- код прибора в ремонте
+    device_id integer references devices(device_id), -- код прибора (внешний ключ)
+    master_id integer references masters(master_id), -- код мастера (внешний ключ)
+    owner_full_name varchar(255) not null, 
+    receipt_date date not null,             -- дата приема в ремонт
+    malfunction_type varchar(200) not null, -- вид поломки
+    repair_cost decimal(10, 2) not null     -- стоимость ремонта
 );
---- 2. Заполнение данных
--- Заполнение таблицы masters (мастера)
-INSERT INTO masters (master_id, last_name, first_name, middle_name, qualification_rank, hire_date) VALUES
-(1, 'Иванов', 'Александр', 'Петрович', 5, '2020-03-15'),
-(2, 'Петрова', 'Елена', 'Сергеевна', 4, '2021-06-22'),
-(3, 'Сидоров', 'Николай', 'Иванович', 5, '2019-11-10'),
-(4, 'Козлова', 'Мария', 'Андреевна', 3, '2022-02-01'),
-(5, 'Соколов', 'Дмитрий', 'Алексеевич', 4, '2020-08-17');
+--- 2. заполнение данных
+-- заполнение таблицы masters
+insert into masters (master_id, last_name, first_name, middle_name, qualification_rank, hire_date) values
+(1, 'иванов', 'александр', 'петрович', 5, '2020-03-15'),
+(2, 'петрова', 'елена', 'сергеевна', 4, '2021-06-22'),
+(3, 'сидоров', 'николай', 'иванович', 5, '2019-11-10'),
+(4, 'козлова', 'мария', 'андреевна', 3, '2022-02-01'),
+(5, 'соколов', 'дмитрий', 'алексеевич', 4, '2020-08-17');
 
 
--- Заполнение таблицы devices (приборы)
-INSERT INTO devices (device_id, device_name, device_type, manufacture_date) VALUES
-(1, 'Samsung Galaxy S21', 'Смартфон', '2021-02-10'),
-(2, 'LG 55NANO866', 'Телевизор', '2020-11-05'),
-(3, 'Bosch Serie 6', 'Стиральная машина', '2019-08-15'),
-(4, 'Sony PlayStation 5', 'Игровая приставка', '2021-01-20'),
-(5, 'Apple MacBook Pro', 'Ноутбук', '2020-07-12');
+-- заполнение таблицы devices
+insert into devices (device_id, device_name, device_type, manufacture_date) values
+(1, 'samsung galaxy s21', 'смартфон', '2021-02-10'),
+(2, 'lg 55nano866', 'телевизор', '2020-11-05'),
+(3, 'bosch serie 6', 'стиральная машина', '2019-08-15'),
+(4, 'sony playstation 5', 'игровая приставка', '2021-01-20'),
+(5, 'apple macbook pro', 'ноутбук', '2020-07-12');
 
--- Заполнение таблицы repairs (ремонты)
-INSERT INTO repairs (repair_id, device_in_repair_id, device_id, master_id, owner_full_name, receipt_date, malfunction_type, repair_cost) VALUES
-(1, 'REP-2023-001', 1, 3, 'Кузнецов Иван Васильевич', '2023-01-10', 'Разбитый экран', 8500.00),
-(2, 'REP-2023-002', 2, 1, 'Смирнова Ольга Петровна', '2023-02-15', 'Неисправен блок питания', 3200.00),
-(3, 'REP-2023-003', 3, 5, 'Новиков Андрей Михайлович', '2023-01-25', 'Не сливает воду', 4600.00),
-(4, 'REP-2023-004', 4, 2, 'Морозов Сергей Дмитриевич', '2023-03-05', 'Перегрев системы', 5100.00),
-(5, 'REP-2023-005', 5, 4, 'Волкова Наталья Игоревна', '2023-02-20', 'Не включается', 7200.00);
+-- заполнение таблицы repairs
+insert into repairs (repair_id, device_in_repair_id, device_id, master_id, owner_full_name, receipt_date, malfunction_type, repair_cost) values
+(1, 'rep-2023-001', 1, 3, 'кузнецов иван васильевич', '2023-01-10', 'разбитый экран', 8500.00),
+(2, 'rep-2023-002', 2, 1, 'смирнова ольга петровна', '2023-02-15', 'неисправен блок питания', 3200.00),
+(3, 'rep-2023-003', 3, 5, 'новиков андрей михайлович', '2023-01-25', 'не сливает воду', 4600.00),
+(4, 'rep-2023-004', 4, 2, 'морозов сергей дмитриевич', '2023-03-05', 'перегрев системы', 5100.00),
+(5, 'rep-2023-005', 5, 4, 'волкова наталья игоревна', '2023-02-20', 'не включается', 7200.00);

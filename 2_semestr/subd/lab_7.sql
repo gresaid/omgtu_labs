@@ -1,146 +1,146 @@
--- Active: 1744030364581@@127.0.0.1@5432@device_repair
--- 1.  Ведение журнала изменений стоимости ремонта
+-- active: 1744030364581@@127.0.0.1@5432@device_repair
+-- 1.  ведение журнала изменений стоимости ремонта
 
-CREATE TABLE IF NOT EXISTS repair_cost_history (
-    history_id SERIAL PRIMARY KEY,
-    repair_id INT NOT NULL,
-    old_cost DECIMAL(10, 2),
-    new_cost DECIMAL(10, 2),
-    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    change_user VARCHAR(100) DEFAULT CURRENT_USER,
-    change_reason VARCHAR(255)
+create table if not exists repair_cost_history (
+    history_id serial primary key,
+    repair_id int not null,
+    old_cost decimal(10, 2),
+    new_cost decimal(10, 2),
+    change_date timestamp default current_timestamp,
+    change_user varchar(100) default current_user,
+    change_reason varchar(255)
 );
 
-CREATE OR REPLACE FUNCTION log_repair_cost_changes()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF (OLD.repair_cost IS DISTINCT FROM NEW.repair_cost) THEN
-        INSERT INTO repair_cost_history (
+create or replace function log_repair_cost_changes()
+returns trigger as $$
+begin
+    if (old.repair_cost is distinct from new.repair_cost) then
+        insert into repair_cost_history (
             repair_id,
             old_cost,
             new_cost,
             change_reason
-        ) VALUES (
-            NEW.repair_id,
-            OLD.repair_cost,
-            NEW.repair_cost,
-            'Изменение стоимости ремонта'
+        ) values (
+            new.repair_id,
+            old.repair_cost,
+            new.repair_cost,
+            'изменение стоимости ремонта'
         );
 
-        RAISE NOTICE 'Стоимость ремонта ID % изменена с % на %',
-            NEW.repair_id, OLD.repair_cost, NEW.repair_cost;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+        raise notice 'стоимость ремонта id % изменена с % на %',
+            new.repair_id, old.repair_cost, new.repair_cost;
+    end if;
+    return new;
+end;
+$$ language plpgsql;
 
-CREATE OR REPLACE TRIGGER track_repair_cost_changes
-BEFORE UPDATE ON repairs
-FOR EACH ROW
-EXECUTE FUNCTION log_repair_cost_changes();
+create or replace trigger track_repair_cost_changes
+before update on repairs
+for each row
+execute function log_repair_cost_changes();
 
--- 2.  Автоматическое обновление разряда мастера при выполнении определенного количества ремонтов
+-- 2.  автоматическое обновление разряда мастера при выполнении определенного количества ремонтов
 
-CREATE TABLE IF NOT EXISTS rank_upgrade_conditions (
-    rank_id SERIAL PRIMARY KEY,
-    from_rank INT NOT NULL,
-    to_rank INT NOT NULL,
-    min_repairs_required INT NOT NULL,
-    min_experience_years DECIMAL(5, 2) NOT NULL,
-    UNIQUE (from_rank, to_rank)
+create table if not exists rank_upgrade_conditions (
+    rank_id serial primary key,
+    from_rank int not null,
+    to_rank int not null,
+    min_repairs_required int not null,
+    min_experience_years decimal(5, 2) not null,
+    unique (from_rank, to_rank)
 );
 
-INSERT INTO rank_upgrade_conditions (from_rank, to_rank, min_repairs_required, min_experience_years)
-VALUES
+insert into rank_upgrade_conditions (from_rank, to_rank, min_repairs_required, min_experience_years)
+values
     (1, 2, 3, 0.5),
     (2, 3, 30, 1.0),
     (3, 4, 50, 2.0),
     (4, 5, 100, 3.0)
-ON CONFLICT (from_rank, to_rank) DO NOTHING;
+on conflict (from_rank, to_rank) do nothing;
 
-CREATE OR REPLACE FUNCTION check_master_rank_upgrade()
-RETURNS TRIGGER AS $$
-DECLARE
-    master_repair_count INT;
-    master_experience DECIMAL(5, 2);
-    current_rank INT;
-    upgrade_condition RECORD;
-    should_upgrade BOOLEAN := FALSE;
-    master_name VARCHAR;
-BEGIN
-    -- Получаем данные о мастере
-    SELECT
+create or replace function check_master_rank_upgrade()
+returns trigger as $$
+declare
+    master_repair_count int;
+    master_experience decimal(5, 2);
+    current_rank int;
+    upgrade_condition record;
+    should_upgrade boolean := false;
+    master_name varchar;
+begin
+    -- получаем данные о мастере
+    select
         qualification_rank,
-        EXTRACT(YEAR FROM AGE(CURRENT_DATE, hire_date)),
-        last_name || ' ' || first_name || ' ' || COALESCE(middle_name, '')
-    INTO
+        extract(year from age(current_date, hire_date)),
+        last_name || ' ' || first_name || ' ' || coalesce(middle_name, '')
+    into
         current_rank,
         master_experience,
         master_name
-    FROM masters
-    WHERE master_id = NEW.master_id;
+    from masters
+    where master_id = new.master_id;
 
-    -- Выводим отладочную информацию
-    RAISE NOTICE 'Триггер активирован для мастера ID: %, ФИО: %, текущий разряд: %, стаж: % лет',
-        NEW.master_id, master_name, current_rank, master_experience;
+    -- выводим отладочную информацию
+    raise notice 'триггер активирован для мастера id: %, фио: %, текущий разряд: %, стаж: % лет',
+        new.master_id, master_name, current_rank, master_experience;
 
-    -- Подсчитываем общее количество ремонтов, включая только что добавленный
-    SELECT COUNT(*)
-    INTO master_repair_count
-    FROM repairs
-    WHERE master_id = NEW.master_id;
+    -- подсчитываем общее количество ремонтов, включая только что добавленный
+    select count(*)
+    into master_repair_count
+    from repairs
+    where master_id = new.master_id;
 
-    RAISE NOTICE 'Общее количество ремонтов у мастера: %', master_repair_count;
+    raise notice 'общее количество ремонтов у мастера: %', master_repair_count;
 
-    -- Проверяем условия для повышения разряда
-    SELECT * INTO upgrade_condition
-    FROM rank_upgrade_conditions
-    WHERE from_rank = current_rank
-    AND min_repairs_required <= master_repair_count
-    AND min_experience_years <= master_experience;
+    -- проверяем условия для повышения разряда
+    select * into upgrade_condition
+    from rank_upgrade_conditions
+    where from_rank = current_rank
+    and min_repairs_required <= master_repair_count
+    and min_experience_years <= master_experience;
 
-    -- Если есть подходящее условие - повышаем разряд
-    IF FOUND THEN
-        should_upgrade := TRUE;
+    -- если есть подходящее условие - повышаем разряд
+    if found then
+        should_upgrade := true;
 
-        -- Обновляем разряд мастера
-        UPDATE masters
-        SET qualification_rank = upgrade_condition.to_rank
-        WHERE master_id = NEW.master_id;
+        -- обновляем разряд мастера
+        update masters
+        set qualification_rank = upgrade_condition.to_rank
+        where master_id = new.master_id;
 
-        -- Выводим уведомление о повышении
-        RAISE NOTICE 'Мастер % повышен с разряда % до разряда %',
+        -- выводим уведомление о повышении
+        raise notice 'мастер % повышен с разряда % до разряда %',
             master_name, current_rank, upgrade_condition.to_rank;
-    ELSE
-        RAISE NOTICE 'Условия для повышения не выполнены';
+    else
+        raise notice 'условия для повышения не выполнены';
 
-        -- Проверяем, есть ли вообще правило для текущего разряда
-        SELECT * INTO upgrade_condition
-        FROM rank_upgrade_conditions
-        WHERE from_rank = current_rank;
-    END IF;
+        -- проверяем, есть ли вообще правило для текущего разряда
+        select * into upgrade_condition
+        from rank_upgrade_conditions
+        where from_rank = current_rank;
+    end if;
 
-    -- Возвращаем NEW, чтобы разрешить операцию INSERT
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+    -- возвращаем new, чтобы разрешить операцию insert
+    return new;
+end;
+$$ language plpgsql;
 
-DROP TRIGGER IF EXISTS update_master_rank_on_repair ON repairs;
+drop trigger if exists update_master_rank_on_repair on repairs;
 
-CREATE OR REPLACE TRIGGER update_master_rank_on_repair
-AFTER INSERT ON repairs
-FOR EACH ROW
-EXECUTE FUNCTION check_master_rank_upgrade();
+create or replace trigger update_master_rank_on_repair
+after insert on repairs
+for each row
+execute function check_master_rank_upgrade();
 
 -- обновления стоимости ремонта для проверки первого триггера:
-UPDATE repairs SET repair_cost = 9000.00 WHERE repair_id = 1;
+update repairs set repair_cost = 9000.00 where repair_id = 1;
 
 -- добавления нового ремонта для проверки второго триггера:
-INSERT INTO masters (master_id, last_name, first_name, middle_name, qualification_rank, hire_date) VALUES
-(6, 'Тестов', 'Тест', 'Тестович', 1, '2020-03-15')
+insert into masters (master_id, last_name, first_name, middle_name, qualification_rank, hire_date) values
+(6, 'тестов', 'тест', 'тестович', 1, '2020-03-15')
 
-INSERT INTO repairs (repair_id, device_in_repair_id, device_id, master_id, owner_full_name, receipt_date, malfunction_type, repair_cost)
-VALUES
-(15, 'REP-2023-007', 1, 6, 'Тестовый Клиент2', CURRENT_DATE, 'Тестовая поломка2', 5000.00),
-(16, 'REP-2023-007', 1, 6, 'Тестовый Клиент2', CURRENT_DATE, 'Тестовая поломка2', 5000.00),
-(17, 'REP-2023-007', 1, 6, 'Тестовый Клиент2', CURRENT_DATE, 'Тестовая поломка2', 5000.00);
+insert into repairs (repair_id, device_in_repair_id, device_id, master_id, owner_full_name, receipt_date, malfunction_type, repair_cost)
+values
+(15, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
+(16, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
+(17, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00);
