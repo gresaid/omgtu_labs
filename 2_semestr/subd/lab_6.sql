@@ -1,155 +1,155 @@
--- Active: 1744030364581@@127.0.0.1@5432@device_repair
+-- active: 1744030364581@@127.0.0.1@5432@device_repair
 
--- Вывести список приборов с указанным типом
-CREATE OR REPLACE PROCEDURE list_devices_by_type(device_type_param VARCHAR)
-LANGUAGE plpgsql
-AS $$
-DECLARE r RECORD;
-BEGIN
-    IF device_type_param IS NULL OR TRIM(device_type_param) = '' THEN
-        RAISE EXCEPTION 'Тип устройства не может быть пустым';
-    END IF;
+-- вывести список приборов с указанным типом
+create or replace procedure list_devices_by_type(device_type_param varchar)
+language plpgsql
+as $$
+declare r record;
+begin
+    if device_type_param is null or trim(device_type_param) = '' then
+        raise exception 'тип устройства не может быть пустым';
+    end if;
 
-    FOR r IN (
-        SELECT
+    for r in (
+        select
             device_id,
             device_name,
             device_type,
             manufacture_date
-        FROM
+        from
             devices
-        WHERE
-            device_type ILIKE '%' || device_type_param || '%'
-        ORDER BY
+        where
+            device_type ilike '%' || device_type_param || '%'
+        order by
             device_name
-    ) LOOP
-        RAISE NOTICE 'Устройство ID: %, Название: %, Тип: %, Дата производства: %',
+    ) loop
+        raise notice 'устройство id: %, название: %, тип: %, дата производства: %',
               r.device_id, r.device_name, r.device_type, r.manufacture_date;
-    END LOOP;
-END;
+    end loop;
+end;
 $$;
 
--- Вывести статистику по ремонтам указанного мастера
-CREATE OR REPLACE PROCEDURE list_master_repairs_stats(master_id_param INT)
-LANGUAGE plpgsql
-AS $$
-DECLARE
-    total_repairs BIGINT;
-    total_cost NUMERIC;
-    master_name VARCHAR;
-    master_exists BOOLEAN;
-BEGIN
-    IF master_id_param IS NULL THEN
-        RAISE EXCEPTION 'ID мастера не может быть NULL';
-    END IF;
+-- вывести статистику по ремонтам указанного мастера
+create or replace procedure list_master_repairs_stats(master_id_param int)
+language plpgsql
+as $$
+declare
+    total_repairs bigint;
+    total_cost numeric;
+    master_name varchar;
+    master_exists boolean;
+begin
+    if master_id_param is null then
+        raise exception 'id мастера не может быть null';
+    end if;
 
-    SELECT EXISTS (
-        SELECT 1 FROM masters WHERE master_id = master_id_param
-    ) INTO master_exists;
+    select exists (
+        select 1 from masters where master_id = master_id_param
+    ) into master_exists;
 
-    IF NOT master_exists THEN
-        RAISE EXCEPTION 'Мастер с ID % не найден', master_id_param;
-    END IF;
+    if not master_exists then
+        raise exception 'мастер с id % не найден', master_id_param;
+    end if;
 
-    SELECT last_name || ' ' || first_name || ' ' || COALESCE(middle_name, '')
-    INTO master_name
-    FROM masters
-    WHERE master_id = master_id_param;
+    select last_name || ' ' || first_name || ' ' || coalesce(middle_name, '')
+    into master_name
+    from masters
+    where master_id = master_id_param;
 
-    SELECT
-        COUNT(repair_id),
-        COALESCE(SUM(repair_cost), 0)
-    INTO
+    select
+        count(repair_id),
+        coalesce(sum(repair_cost), 0)
+    into
         total_repairs,
         total_cost
-    FROM
+    from
         repairs
-    WHERE
+    where
         master_id = master_id_param;
 
-    RAISE NOTICE 'Статистика для мастера: %', master_name;
-    RAISE NOTICE 'Количество ремонтов: %', total_repairs;
-    RAISE NOTICE 'Общая стоимость: % руб.', total_cost;
-END;
+    raise notice 'статистика для мастера: %', master_name;
+    raise notice 'количество ремонтов: %', total_repairs;
+    raise notice 'общая стоимость: % руб.', total_cost;
+end;
 $$;
 
--- Вывести владельцев и количество обращений
-CREATE OR REPLACE PROCEDURE list_owners_by_repairs_count()
-LANGUAGE plpgsql
-AS $$
-DECLARE r RECORD;
-BEGIN
-    RAISE NOTICE 'Список владельцев по количеству обращений:';
-    RAISE NOTICE '-------------------------------------------';
-    RAISE NOTICE 'ФИО владельца | Количество ремонтов | Общая сумма';
-    RAISE NOTICE '-------------------------------------------';
+-- вывести владельцев и количество обращений
+create or replace procedure list_owners_by_repairs_count()
+language plpgsql
+as $$
+declare r record;
+begin
+    raise notice 'список владельцев по количеству обращений:';
+    raise notice '-------------------------------------------';
+    raise notice 'фио владельца | количество ремонтов | общая сумма';
+    raise notice '-------------------------------------------';
 
-    FOR r IN (
-        SELECT
+    for r in (
+        select
             owner_full_name,
-            COUNT(repair_id) AS repairs_count,
-            SUM(repair_cost) AS total_spent
-        FROM
+            count(repair_id) as repairs_count,
+            sum(repair_cost) as total_spent
+        from
             repairs
-        GROUP BY
+        group by
             owner_full_name
-        ORDER BY
-            repairs_count DESC,
-            total_spent DESC
-    ) LOOP
-        RAISE NOTICE '% | % | % руб.',
+        order by
+            repairs_count desc,
+            total_spent desc
+    ) loop
+        raise notice '% | % | % руб.',
               r.owner_full_name, r.repairs_count, r.total_spent;
-    END LOOP;
-END;
+    end loop;
+end;
 $$;
 
--- Вывести информацию о мастерах по разряду и дате
-CREATE OR REPLACE PROCEDURE list_masters_by_rank_or_date(
-    min_rank INT DEFAULT 1,
-    max_hire_date DATE DEFAULT CURRENT_DATE
+-- вывести информацию о мастерах по разряду и дате
+create or replace procedure list_masters_by_rank_or_date(
+    min_rank int default 1,
+    max_hire_date date default current_date
 )
-LANGUAGE plpgsql
-AS $$
-DECLARE r RECORD;
+language plpgsql
+as $$
+declare r record;
 
-BEGIN
-    IF min_rank IS NULL THEN
+begin
+    if min_rank is null then
         min_rank := 1;
-    END IF;
+    end if;
 
-    IF max_hire_date IS NULL THEN
-        max_hire_date := CURRENT_DATE;
-    END IF;
+    if max_hire_date is null then
+        max_hire_date := current_date;
+    end if;
 
-    RAISE NOTICE 'Список мастеров (разряд > % или дата приема < %):',
+    raise notice 'список мастеров (разряд > % или дата приема < %):',
           min_rank, max_hire_date;
-    RAISE NOTICE '------------------------------------------------------';
-    RAISE NOTICE 'ID | ФИО | Разряд | Дата приема | Стаж (лет)';
-    RAISE NOTICE '------------------------------------------------------';
+    raise notice '------------------------------------------------------';
+    raise notice 'id | фио | разряд | дата приема | стаж (лет)';
+    raise notice '------------------------------------------------------';
 
-    FOR r IN (
-        SELECT
+    for r in (
+        select
             master_id,
-            last_name || ' ' || first_name || ' ' || COALESCE(middle_name, '') AS full_name,
+            last_name || ' ' || first_name || ' ' || coalesce(middle_name, '') as full_name,
             qualification_rank,
             hire_date,
-            EXTRACT(YEAR FROM AGE(CURRENT_DATE, hire_date)) AS years_exp
-        FROM
+            extract(year from age(current_date, hire_date)) as years_exp
+        from
             masters
-        WHERE
+        where
             qualification_rank > min_rank
-            OR hire_date < max_hire_date
-        ORDER BY
-            qualification_rank DESC,
-            hire_date ASC
-    ) LOOP
-        RAISE NOTICE '% | % | % | % | %',
+            or hire_date < max_hire_date
+        order by
+            qualification_rank desc,
+            hire_date asc
+    ) loop
+        raise notice '% | % | % | % | %',
               r.master_id, r.full_name, r.qualification_rank, r.hire_date, r.years_exp;
-    END LOOP;
-END;
+    end loop;
+end;
 $$;
 
-CALL list_devices_by_type('Смартфон');
-CALL list_master_repairs_stats(1);
-CALL list_owners_by_repairs_count();
-CALL list_masters_by_rank_or_date(3, '2021-01-01');
+call list_devices_by_type('смартфон');
+call list_master_repairs_stats(1);
+call list_owners_by_repairs_count();
+call list_masters_by_rank_or_date(3, '2021-01-01');
