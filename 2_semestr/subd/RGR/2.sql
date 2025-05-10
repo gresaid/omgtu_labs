@@ -1,124 +1,117 @@
 -- все записи на определенную дату с информацией о клиентах, мастерах и услугах
-
-SELECT
+select
     a.appointment_id,
-    CONCAT(c.first_name, ' ', c.last_name) AS client_name,
-    CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
-    s.name AS service_name,
+    concat(c.first_name, ' ', c.last_name) as client_name,
+    concat(e.first_name, ' ', e.last_name) as employee_name,
+    s.name as service_name,
     a.start_time,
     s.duration,
     s.price,
     a.status
-FROM
+from
     appointments a
-JOIN
-    clients c ON a.client_id = c.client_id
-JOIN
-    employees e ON a.employee_id = e.employee_id
-JOIN
-    services s ON a.service_id = s.service_id
-WHERE
+    join clients c on a.client_id = c.client_id
+    join employees e on a.employee_id = e.employee_id
+    join services s on a.service_id = s.service_id
+where
     a.appointment_date = '2024-11-21'
-ORDER BY
+order by
     a.start_time;
 
-
--- Рейтинг мастеров по среднему баллу отзывов
-SELECT
-    CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
+-- рейтинг мастеров по среднему баллу отзывов
+select
+    concat(e.first_name, ' ', e.last_name) as employee_name,
     e.position,
-    COUNT(f.feedback_id) AS feedback_count,
-    ROUND(AVG(f.rating), 2) AS average_rating
-FROM
+    count(f.feedback_id) as feedback_count,
+    round(avg(f.rating), 2) as average_rating
+from
     employees e
-LEFT JOIN
-    appointments a ON e.employee_id = a.employee_id
-LEFT JOIN
-    feedback f ON a.appointment_id = f.appointment_id
-GROUP BY
-    e.employee_id, e.first_name, e.last_name, e.position
-HAVING
-    COUNT(f.feedback_id) > 0
-ORDER BY
-    average_rating DESC;
+    left join appointments a on e.employee_id = a.employee_id
+    left join feedback f on a.appointment_id = f.appointment_id
+group by
+    e.employee_id,
+    e.first_name,
+    e.last_name,
+    e.position
+having
+    count(f.feedback_id) > 0
+order by
+    average_rating desc;
 
---Анализ популярности услуг и дохода от них
-SELECT
-    s.name AS service_name,
-    COUNT(a.appointment_id) AS appointment_count,
-    SUM(s.price) AS total_revenue,
-    ROUND(AVG(f.rating), 2) AS average_rating
-FROM
+--анализ популярности услуг и дохода от них
+select
+    s.name as service_name,
+    count(a.appointment_id) as appointment_count,
+    sum(s.price) as total_revenue,
+    round(avg(f.rating), 2) as average_rating
+from
     services s
-LEFT JOIN
-    appointments a ON s.service_id = a.service_id
-LEFT JOIN
-    feedback f ON a.appointment_id = f.appointment_id
-WHERE
+    left join appointments a on s.service_id = a.service_id
+    left join feedback f on a.appointment_id = f.appointment_id
+where
     a.status = 'completed'
-    AND a.appointment_date BETWEEN '2025-01-01' AND '2025-05-01'
-GROUP BY
-    s.service_id, s.name
-ORDER BY
-    appointment_count DESC, total_revenue DESC;
+    and a.appointment_date between '2025-01-01'
+    and '2025-05-01'
+group by
+    s.service_id,
+    s.name
+order by
+    appointment_count desc,
+    total_revenue desc;
 
-
---Список клиентов, не посещавших салон более 6 месяцев
-SELECT
+--список клиентов, не посещавших салон более 6 месяцев
+select
     c.client_id,
-    CONCAT(c.first_name, ' ', c.last_name) AS client_name,
+    concat(c.first_name, ' ', c.last_name) as client_name,
     c.phone,
     c.email,
-    MAX(a.appointment_date) AS last_visit_date,
-    CURRENT_DATE - MAX(a.appointment_date) AS days_since_last_visit
-FROM
+    max(a.appointment_date) as last_visit_date,
+    current_date - max(a.appointment_date) as days_since_last_visit
+from
     clients c
-LEFT JOIN
-    appointments a ON c.client_id = a.client_id
-WHERE
+    left join appointments a on c.client_id = a.client_id
+where
     a.status = 'completed'
-GROUP BY
-    c.client_id, c.first_name, c.last_name, c.phone, c.email
-HAVING
-    MAX(a.appointment_date) < CURRENT_DATE - INTERVAL '6 months'
-ORDER BY
-    last_visit_date ASC;
+group by
+    c.client_id,
+    c.first_name,
+    c.last_name,
+    c.phone,
+    c.email
+having
+    max(a.appointment_date) < current_date - interval '6 months'
+order by
+    last_visit_date asc;
 
-
--- Эффективность услуг
-SELECT
+-- эффективность услуг
+select
     service_id,
-    name AS service_name,
+    name as service_name,
     price,
     duration,
-    ROUND(price / NULLIF(duration, 0), 2) AS price_per_minute,
-    ROUND(price / (NULLIF(duration, 0) / 60.0), 2) AS price_per_hour,
-    RANK() OVER (ORDER BY price / NULLIF(duration, 0) DESC) AS profitability_rank
-FROM
+    round(price / nullif(duration, 0), 2) as price_per_minute,
+    round(price / (nullif(duration, 0) / 60.0), 2) as price_per_hour,
+    rank() over (
+        order by
+            price / nullif(duration, 0) desc
+    ) as profitability_rank
+from
     services
-WHERE
+where
     duration > 0
-ORDER BY
-    price_per_minute DESC,
-    price DESC;
+order by
+    price_per_minute desc,
+    price desc;
 
-
-
-
-
-
-
-
-
-
-
--- Обновление цены на услугу с учетом инфляции
-UPDATE services
-SET price = price * 1.1
-WHERE service_id IN (1, 2, 3)
-
-
---Запрос на удаление данных
-DELETE FROM appointments
-WHERE status = 'cancelled'
-AND appointment_date < CURRENT_DATE - INTERVAL '3 months';
+-- обновление цены на услугу с учетом инфляции
+update
+    services
+set
+    price = price * 1.1
+where
+    service_id in (1, 2, 3) --запрос на удаление данных
+delete from
+    appointments
+where
+    status = 'cancelled'
+    and appointment_date < current_date - interval '3 months';
