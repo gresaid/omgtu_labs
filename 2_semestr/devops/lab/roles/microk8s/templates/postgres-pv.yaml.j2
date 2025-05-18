@@ -14,3 +14,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: "{{ postgres_data_path }}"
+    type: DirectoryOrCreate
