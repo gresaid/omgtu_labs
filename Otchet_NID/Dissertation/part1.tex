@@ -188,11 +188,11 @@ Configuration Service обеспечивает поддержку управле
 Зашифрованные значения маркируются префиксом \texttt{\{cipher\}}. \textit{Для симметричной криптографии необходима установка свойства} \texttt{encrypt.key}.
 Асимметричная криптография требует настройки хранилища ключей через утилиту Java keytool:
 
-\begin{verbatim}
+\begin{lstlisting}
 keytool -genkeypair -alias configkey -keyalg RSA
 -dname "CN=Web Server,C=RU,S=OH" -keypass cfg-password
 -keystore keystore.jks -storepass secure-keystore-password
-\end{verbatim}
+\end{lstlisting}
 
 \paragraph{Заключение по выбору сервера конфигурации}
 
