@@ -1,41 +1,45 @@
 %%% Шаблон %%%
 \DeclareRobustCommand{\fixme}{\textcolor{red}}  % решаем проблему превращения
-                                % названия цвета в результате \MakeUppercase,
-                                % http://tex.stackexchange.com/a/187930,
-                                % \DeclareRobustCommand protects \fixme
-                                % from expanding inside \MakeUppercase
+% названия цвета в результате \MakeUppercase,
+% http://tex.stackexchange.com/a/187930,
+% \DeclareRobustCommand protects \fixme
+% from expanding inside \MakeUppercase
 \AtBeginDocument{%
-    \setlength{\parindent}{2.5em}                   % Абзацный отступ. Должен быть одинаковым по всему тексту и равен пяти знакам (ГОСТ Р 7.0.11-2011, 5.3.7).
+    \setlength{\parindent}{1.25cm}                   % Абзацный отступ 1.25см по новому ГОСТу (было 2.5em)
+    \setlength{\parskip}{0pt}                        % Убираем пустые интервалы до и после абзацев
 }
 
 %%% Таблицы %%%
 \DeclareCaptionLabelSeparator{tabsep}{\tablabelsep} % нумерация таблиц
 \DeclareCaptionFormat{split}{\splitformatlabel#1\par\splitformattext#3}
 
+% Настройки подписей таблиц по новому ГОСТу
+% Название таблицы сверху слева: Таблица <номер> – Название таблицы без точки на конце
 \captionsetup[table]{
-        format=\tabformat,                % формат подписи (plain|hang)
-        font=normal,                      % нормальные размер, цвет, стиль шрифта
-        skip=.0pt,                        % отбивка под подписью
-        parskip=.0pt,                     % отбивка между параграфами подписи
-        position=above,                   % положение подписи
-        justification=\tabjust,           % центровка
-        indent=\tabindent,                % смещение строк после первой
-        labelsep=tabsep,                  % разделитель
-        singlelinecheck=\tabsinglecenter, % не выравнивать по центру, если умещается в одну строку
+    format=\tabformat,                % формат подписи (plain|hang)
+    font=normal,                      % нормальные размер, цвет, стиль шрифта (14 пт)
+    skip=\baselineskip,               % пустая строка между подписью и таблицей
+    parskip=.0pt,                     % отбивка между параграфами подписи
+    position=above,                   % положение подписи (сверху)
+    justification=raggedright,        % выравнивание по левому краю таблицы
+    indent=0pt,                       % без дополнительного смещения
+    labelsep=tabsep,                  % разделитель
+    singlelinecheck=false,            % не выравнивать по центру, даже если умещается в одну строку
 }
 
 %%% Рисунки %%%
 \DeclareCaptionLabelSeparator{figsep}{\figlabelsep} % нумерация рисунков
 
+% Настройки подписей рисунков - обычно снизу по центру
 \captionsetup[figure]{
-        format=plain,                     % формат подписи (plain|hang)
-        font=normal,                      % нормальные размер, цвет, стиль шрифта
-        skip=.0pt,                        % отбивка под подписью
-        parskip=.0pt,                     % отбивка между параграфами подписи
-        position=below,                   % положение подписи
-        singlelinecheck=true,             % выравнивание по центру, если умещается в одну строку
-        justification=centerlast,         % центровка
-        labelsep=figsep,                  % разделитель
+    format=plain,                     % формат подписи (plain|hang)
+    font=normal,                      % нормальные размер, цвет, стиль шрифта (14 пт)
+    skip=\baselineskip,               % пустая строка между рисунком и подписью
+    parskip=.0pt,                     % отбивка между параграфами подписи
+    position=below,                   % положение подписи (снизу)
+    singlelinecheck=true,             % выравнивание по центру, если умещается в одну строку
+    justification=centerlast,         % центровка
+    labelsep=figsep,                  % разделитель
 }
 
 %%% Подписи подрисунков %%%
@@ -45,20 +49,20 @@
 \DeclareCaptionFont{norm}{\fontsize{10pt}{11pt}\selectfont}
 \newcommand{\subfigureskip}{2.pt}
 \else
-\DeclareCaptionFont{norm}{\fontsize{14pt}{16pt}\selectfont}
+\DeclareCaptionFont{norm}{\fontsize{14pt}{21pt}\selectfont} % 14 пт с интервалом 1.5 по новому ГОСТу
 \newcommand{\subfigureskip}{0.pt}
 \fi
 
 \captionsetup[subfloat]{
-        labelfont=norm,                 % нормальный размер подписей подрисунков
-        textfont=norm,                  % нормальный размер подписей подрисунков
-        labelsep=space,                 % разделитель
-        labelformat=brace,              % одна скобка справа от номера
-        justification=centering,        % центровка
-        singlelinecheck=true,           % выравнивание по центру, если умещается в одну строку
-        skip=\subfigureskip,            % отбивка над подписью
-        parskip=.0pt,                   % отбивка между параграфами подписи
-        position=below,                 % положение подписи
+    labelfont=norm,                 % нормальный размер подписей подрисунков (14 пт)
+    textfont=norm,                  % нормальный размер подписей подрисунков (14 пт)
+    labelsep=space,                 % разделитель
+    labelformat=brace,              % одна скобка справа от номера
+    justification=centering,        % центровка
+    singlelinecheck=true,           % выравнивание по центру, если умещается в одну строку
+    skip=\subfigureskip,            % отбивка над подписью
+    parskip=.0pt,                   % отбивка между параграфами подписи
+    position=below,                 % положение подписи
 }
 
 %%% Настройки ссылок на рисунки, таблицы и др. %%%
@@ -67,86 +71,86 @@
 
 \ifpresentation
 \else
-    \crefdefaultlabelformat{#2#1#3}
+\crefdefaultlabelformat{#2#1#3}
 
-    % Уравнение
-    \crefformat{equation}{(#2#1#3)} % одиночная ссылка с приставкой
-    \labelcrefformat{equation}{(#2#1#3)} % одиночная ссылка без приставки
-    \crefrangeformat{equation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{equation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок без приставки
-    \crefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление без приставки
+% Уравнение
+\crefformat{equation}{(#2#1#3)} % одиночная ссылка с приставкой
+\labelcrefformat{equation}{(#2#1#3)} % одиночная ссылка без приставки
+\crefrangeformat{equation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок с приставкой
+\labelcrefrangeformat{equation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок без приставки
+\crefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление ссылок с приставкой
+\labelcrefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление без приставки
 
-    % Подуравнение
-    \crefformat{subequation}{(#2#1#3)} % одиночная ссылка с приставкой
-    \labelcrefformat{subequation}{(#2#1#3)} % одиночная ссылка без приставки
-    \crefrangeformat{subequation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{subequation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок без приставки
-    \crefmultiformat{subequation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{subequation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление без приставки
+% Подуравнение
+\crefformat{subequation}{(#2#1#3)} % одиночная ссылка с приставкой
+\labelcrefformat{subequation}{(#2#1#3)} % одиночная ссылка без приставки
+\crefrangeformat{subequation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок с приставкой
+\labelcrefrangeformat{subequation}{(#3#1#4) \cyrdash~(#5#2#6)} % диапазон ссылок без приставки
+\crefmultiformat{subequation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление ссылок с приставкой
+\labelcrefmultiformat{subequation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % перечисление без приставки
 
-    % Глава
-    \crefformat{chapter}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{chapter}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{chapter}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{chapter}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{chapter}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{chapter}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Глава
+\crefformat{chapter}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{chapter}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{chapter}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{chapter}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{chapter}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{chapter}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Параграф
-    \crefformat{section}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{section}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{section}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{section}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{section}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{section}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Параграф
+\crefformat{section}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{section}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{section}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{section}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{section}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{section}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Приложение
-    \crefformat{appendix}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{appendix}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{appendix}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{appendix}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{appendix}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{appendix}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Приложение
+\crefformat{appendix}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{appendix}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{appendix}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{appendix}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{appendix}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{appendix}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Рисунок
-    \crefformat{figure}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{figure}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{figure}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{figure}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{figure}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{figure}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Рисунок
+\crefformat{figure}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{figure}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{figure}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{figure}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{figure}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{figure}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Таблица
-    \crefformat{table}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{table}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{table}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{table}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{table}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{table}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Таблица
+\crefformat{table}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{table}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{table}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{table}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{table}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{table}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Листинг
-    \crefformat{lstlisting}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{lstlisting}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{lstlisting}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{lstlisting}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{lstlisting}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{lstlisting}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Листинг
+\crefformat{lstlisting}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{lstlisting}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{lstlisting}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{lstlisting}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{lstlisting}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{lstlisting}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 
-    % Листинг
-    \crefformat{ListingEnv}{#2#1#3} % одиночная ссылка с приставкой
-    \labelcrefformat{ListingEnv}{#2#1#3} % одиночная ссылка без приставки
-    \crefrangeformat{ListingEnv}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
-    \labelcrefrangeformat{ListingEnv}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
-    \crefmultiformat{ListingEnv}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
-    \labelcrefmultiformat{ListingEnv}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
+% Листинг
+\crefformat{ListingEnv}{#2#1#3} % одиночная ссылка с приставкой
+\labelcrefformat{ListingEnv}{#2#1#3} % одиночная ссылка без приставки
+\crefrangeformat{ListingEnv}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок с приставкой
+\labelcrefrangeformat{ListingEnv}{#3#1#4 \cyrdash~#5#2#6} % диапазон ссылок без приставки
+\crefmultiformat{ListingEnv}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление ссылок с приставкой
+\labelcrefmultiformat{ListingEnv}{#2#1#3}{ и~#2#1#3}{, #2#1#3}{ и~#2#1#3} % перечисление без приставки
 \fi
 
 %%% Настройки гиперссылок %%%
 \ifluatex
-    \hypersetup{
-        unicode,                % Unicode encoded PDF strings
-    }
+\hypersetup{
+    unicode,                % Unicode encoded PDF strings
+}
 \fi
 
 \hypersetup{
@@ -173,27 +177,34 @@
     }
 }{}
 
-%%% Списки %%%
-% Используем короткое тире (endash) для ненумерованных списков (ГОСТ 2.105-95, пункт 4.1.7, требует дефиса, но так лучше смотрится)
-\renewcommand{\labelitemi}{\normalfont\bfseries{--}}
+%%% Списки по новому ГОСТу %%%
+% Допустимые маркеры:
+% - Тире (–), если порядок перечисления не важен
+% - Арабская цифра со скобкой или маленькая буква русского алфавита со скобкой – если важен порядок перечисления
+% В списке использованных источников используется маркер – арабская цифра (без скобки, без точки)
 
-% Перечисление строчными буквами латинского алфавита (ГОСТ 2.105-95, 4.1.7)
-%\renewcommand{\theenumi}{\alph{enumi}}
-%\renewcommand{\labelenumi}{\theenumi)}
+% Используем тире (endash) для ненумерованных списков по новому ГОСТу
+\renewcommand{\labelitemi}{--} % тире для первого уровня (без жира)
+\renewcommand{\labelitemii}{--} % тире для второго уровня
+\renewcommand{\labelitemiii}{--} % тире для третьего уровня
 
-% Перечисление строчными буквами русского алфавита (ГОСТ 2.105-95, 4.1.7)
+% Перечисление строчными буквами русского алфавита (по новому ГОСТу)
 \makeatletter
 \AddEnumerateCounter{\asbuk}{\russian@alph}{щ}      % Управляем списками/перечислениями через пакет enumitem, а он 'не знает' про asbuk, потому 'учим' его
 \makeatother
-%\renewcommand{\theenumi}{\asbuk{enumi}} %первый уровень нумерации
-%\renewcommand{\labelenumi}{\theenumi)} %первый уровень нумерации
-\renewcommand{\theenumii}{\asbuk{enumii}} %второй уровень нумерации
-\renewcommand{\labelenumii}{\theenumii)} %второй уровень нумерации
-\renewcommand{\theenumiii}{\arabic{enumiii}} %третий уровень нумерации
-\renewcommand{\labelenumiii}{\theenumiii)} %третий уровень нумерации
 
+% Настройка нумерованных списков
+\renewcommand{\theenumi}{\arabic{enumi}} % первый уровень: арабские цифры со скобкой
+\renewcommand{\labelenumi}{\theenumi)}
+\renewcommand{\theenumii}{\asbuk{enumii}} % второй уровень: строчные русские буквы со скобкой
+\renewcommand{\labelenumii}{\theenumii)}
+\renewcommand{\theenumiii}{\arabic{enumiii}} % третий уровень: арабские цифры со скобкой
+\renewcommand{\labelenumiii}{\theenumiii)}
+
+% Настройки отступов для списков
 \setlist{nosep,%                                    % Единый стиль для всех списков (пакет enumitem), без дополнительных интервалов.
-    labelindent=\parindent,leftmargin=*%            % Каждый пункт, подпункт и перечисление записывают с абзацного отступа (ГОСТ 2.105-95, 4.1.8)
+    labelindent=\parindent,leftmargin=*,%           % Каждый пункт, подпункт и перечисление записывают с абзацного отступа (1.25см по новому ГОСТу)
+    parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt % Убираем все дополнительные отступы в списках
 }
 
 %%% Правильная нумерация приложений, рисунков и формул %%%
@@ -201,61 +212,60 @@
 %% начиная с А, за исключением букв Ё, З, Й, О, Ч, Ь, Ы, Ъ.
 %% Здесь также переделаны все нумерации русскими буквами.
 \ifxetexorluatex
-    \makeatletter
-    \def\russian@Alph#1{\ifcase#1\or
-       А\or Б\or В\or Г\or Д\or Е\or Ж\or
-       И\or К\or Л\or М\or Н\or
-       П\or Р\or С\or Т\or У\or Ф\or Х\or
-       Ц\or Ш\or Щ\or Э\or Ю\or Я\else\xpg@ill@value{#1}{russian@Alph}\fi}
-    \def\russian@alph#1{\ifcase#1\or
-       а\or б\or в\or г\or д\or е\or ж\or
-       и\or к\or л\or м\or н\or
-       п\or р\or с\or т\or у\or ф\or х\or
-       ц\or ш\or щ\or э\or ю\or я\else\xpg@ill@value{#1}{russian@alph}\fi}
-    \def\cyr@Alph#1{\ifcase#1\or
-        А\or Б\or В\or Г\or Д\or Е\or Ж\or
-        И\or К\or Л\or М\or Н\or
-        П\or Р\or С\or Т\or У\or Ф\or Х\or
-        Ц\or Ш\or Щ\or Э\or Ю\or Я\else\xpg@ill@value{#1}{cyr@Alph}\fi}
-    \def\cyr@alph#1{\ifcase#1\or
-        а\or б\or в\or г\or д\or е\or ж\or
-        и\or к\or л\or м\or н\or
-        п\or р\or с\or т\or у\or ф\or х\or
-        ц\or ш\or щ\or э\or ю\or я\else\xpg@ill@value{#1}{cyr@alph}\fi}
-    \makeatother
+\makeatletter
+\def\russian@Alph#1{\ifcase#1\or
+А\or Б\or В\or Г\or Д\or Е\or Ж\or
+И\or К\or Л\or М\or Н\or
+П\or Р\or С\or Т\or У\or Ф\or Х\or
+Ц\or Ш\or Щ\or Э\or Ю\or Я\else\xpg@ill@value{#1}{russian@Alph}\fi}
+\def\russian@alph#1{\ifcase#1\or
+а\or б\or в\or г\or д\or е\or ж\or
+и\or к\or л\or м\or н\or
+п\or р\or с\or т\or у\or ф\or х\or
+ц\or ш\or щ\or э\or ю\or я\else\xpg@ill@value{#1}{russian@alph}\fi}
+\def\cyr@Alph#1{\ifcase#1\or
+А\or Б\or В\or Г\or Д\or Е\or Ж\or
+И\or К\or Л\or М\or Н\or
+П\or Р\or С\or Т\or У\or Ф\or Х\or
+Ц\or Ш\or Щ\or Э\or Ю\or Я\else\xpg@ill@value{#1}{cyr@Alph}\fi}
+\def\cyr@alph#1{\ifcase#1\or
+а\or б\or в\or г\or д\or е\or ж\or
+и\or к\or л\or м\or н\or
+п\or р\or с\or т\or у\or ф\or х\or
+ц\or ш\or щ\or э\or ю\or я\else\xpg@ill@value{#1}{cyr@alph}\fi}
+\makeatother
 \else
-    \makeatletter
-    \if@uni@ode
-      \def\russian@Alph#1{\ifcase#1\or
-        А\or Б\or В\or Г\or Д\or Е\or Ж\or
-        И\or К\or Л\or М\or Н\or
-        П\or Р\or С\or Т\or У\or Ф\or Х\or
-        Ц\or Ш\or Щ\or Э\or Ю\or Я\else\@ctrerr\fi}
-    \else
-      \def\russian@Alph#1{\ifcase#1\or
-        \CYRA\or\CYRB\or\CYRV\or\CYRG\or\CYRD\or\CYRE\or\CYRZH\or
-        \CYRI\or\CYRK\or\CYRL\or\CYRM\or\CYRN\or
-        \CYRP\or\CYRR\or\CYRS\or\CYRT\or\CYRU\or\CYRF\or\CYRH\or
-        \CYRC\or\CYRSH\or\CYRSHCH\or\CYREREV\or\CYRYU\or
-        \CYRYA\else\@ctrerr\fi}
-    \fi
-    \if@uni@ode
-      \def\russian@alph#1{\ifcase#1\or
-        а\or б\or в\or г\or д\or е\or ж\or
-        и\or к\or л\or м\or н\or
-        п\or р\or с\or т\or у\or ф\or х\or
-        ц\or ш\or щ\or э\or ю\or я\else\@ctrerr\fi}
-    \else
-      \def\russian@alph#1{\ifcase#1\or
-        \cyra\or\cyrb\or\cyrv\or\cyrg\or\cyrd\or\cyre\or\cyrzh\or
-        \cyri\or\cyrk\or\cyrl\or\cyrm\or\cyrn\or
-        \cyrp\or\cyrr\or\cyrs\or\cyrt\or\cyru\or\cyrf\or\cyrh\or
-        \cyrc\or\cyrsh\or\cyrshch\or\cyrerev\or\cyryu\or
-        \cyrya\else\@ctrerr\fi}
-    \fi
-    \makeatother
+\makeatletter
+\if@uni@ode
+\def\russian@Alph#1{\ifcase#1\or
+А\or Б\or В\or Г\or Д\or Е\or Ж\or
+И\or К\or Л\or М\or Н\or
+П\or Р\or С\or Т\or У\or Ф\or Х\or
+Ц\or Ш\or Щ\or Э\or Ю\or Я\else\@ctrerr\fi}
+\else
+\def\russian@Alph#1{\ifcase#1\or
+\CYRA\or\CYRB\or\CYRV\or\CYRG\or\CYRD\or\CYRE\or\CYRZH\or
+\CYRI\or\CYRK\or\CYRL\or\CYRM\or\CYRN\or
+\CYRP\or\CYRR\or\CYRS\or\CYRT\or\CYRU\or\CYRF\or\CYRH\or
+\CYRC\or\CYRSH\or\CYRSHCH\or\CYREREV\or\CYRYU\or
+\CYRYA\else\@ctrerr\fi}
 \fi
-
+\if@uni@ode
+\def\russian@alph#1{\ifcase#1\or
+а\or б\or в\or г\or д\or е\or ж\or
+и\or к\or л\or м\or н\or
+п\or р\or с\or т\or у\or ф\or х\or
+ц\or ш\or щ\or э\or ю\or я\else\@ctrerr\fi}
+\else
+\def\russian@alph#1{\ifcase#1\or
+\cyra\or\cyrb\or\cyrv\or\cyrg\or\cyrd\or\cyre\or\cyrzh\or
+\cyri\or\cyrk\or\cyrl\or\cyrm\or\cyrn\or
+\cyrp\or\cyrr\or\cyrs\or\cyrt\or\cyru\or\cyrf\or\cyrh\or
+\cyrc\or\cyrsh\or\cyrshch\or\cyrerev\or\cyryu\or
+\cyrya\else\@ctrerr\fi}
+\fi
+\makeatother
+\fi
 
 %%http://www.linux.org.ru/forum/general/6993203#comment-6994589 (используется totcount)
 \makeatletter
@@ -274,7 +284,7 @@
     \advance\@last\@c
     #2%
     \ifnum\@pnul=1#5\else%
-    \ifcase\@last#5\or#3\or#4\or#4\or#4\else#5\fi
+        \ifcase\@last#5\or#3\or#4\or#4\or#4\else#5\fi
     \fi
 }
 \makeatother
@@ -283,13 +293,61 @@
 
 %%% Команды рецензирования %%%
 \ifboolexpr{ (test {\ifnumequal{\value{draft}}{1}}) or (test {\ifnumequal{\value{showmarkup}}{1}})}{
-        \newrobustcmd{\todo}[1]{\textcolor{red}{#1}}
-        \newrobustcmd{\note}[2][]{\ifstrempty{#1}{#2}{\textcolor{#1}{#2}}}
-        \newenvironment{commentbox}[1][]%
-        {\ifstrempty{#1}{}{\color{#1}}}%
-        {}
+    \newrobustcmd{\todo}[1]{\textcolor{red}{#1}}
+    \newrobustcmd{\note}[2][]{\ifstrempty{#1}{#2}{\textcolor{#1}{#2}}}
+    \newenvironment{commentbox}[1][]%
+    {\ifstrempty{#1}{}{\color{#1}}}%
+    {}
 }{
-        \newrobustcmd{\todo}[1]{}
-        \newrobustcmd{\note}[2][]{}
-        \excludecomment{commentbox}
+    \newrobustcmd{\todo}[1]{}
+    \newrobustcmd{\note}[2][]{}
+    \excludecomment{commentbox}
 }
+
+%%% Дополнительные команды для оформления кода по новому ГОСТу %%%
+% Настройки для кода программы
+% Шрифт DejaVu Sans Mono, размер 11 пт, междустрочный интервал одинарный
+
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=none,
+    numbers=none,
+    aboveskip=\baselineskip,
+    belowskip=\baselineskip
+}
+
+% Команда для вставки кода как отдельного объекта
+\newcommand{\codeblock}[1]{%
+    \par\vspace{\baselineskip}% пустая строка сверху
+    #1%
+    \par\vspace{\baselineskip}% пустая строка снизу
+}
+
+% Улучшенная команда для листингов с автоматическими отступами
+\newenvironment{codelist}{%
+\par\vspace{\baselineskip}% пустая строка сверху
+\begin{lstlisting}%
+}{%
+\end{lstlisting}%
+\par\vspace{\baselineskip}% пустая строка снизу
+}
+
+% Настройки для математических формул с пустыми строками
+\newenvironment{mathblock}{%
+    \par\vspace{\baselineskip}% пустая строка сверху
+    }{%
+    \par\vspace{\baselineskip}% пустая строка снизу
+}
+
+% Команда для встраивания кода в предложение
+\newcommand{\inlinecode}[1]{\lstinline[basicstyle=\fontfamily{DejaVuSansMono-TLF}\fontsize{11pt}{11pt}\selectfont]{#1}}
+
+%%% Настройки для правильного оформления дефисов и тире %%%
+% Правильно используем дефис (-) и тире (–). Длинное тире (—) не используем!
+% Настройки для автоматической замены в тексте можно добавить при необходимости
+
+%%% Настройки кавычек %%%
+% Используем кавычки типа: «  » и больше никаких вариантов
+% Если используется пакет csquotes, то настройки будут там
