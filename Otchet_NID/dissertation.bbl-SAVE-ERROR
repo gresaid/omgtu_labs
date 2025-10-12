@@ -1,0 +1,1016 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{1_kid2003}{book}{}
+      \name{author}{1}{}{%
+        {{hash=07ef3b2d18f3529d865221d5403f3f55}{%
+           family={И.Д.},
+           familyi={И\bibinitperiod},
+           given={К.},
+           giveni={К\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Москва}%
+      }
+      \list{publisher}{1}{%
+        {Отделение историко-филологических наук}%
+      }
+      \strng{namehash}{07ef3b2d18f3529d865221d5403f3f55}
+      \strng{fullhash}{07ef3b2d18f3529d865221d5403f3f55}
+      \strng{bibnamehash}{07ef3b2d18f3529d865221d5403f3f55}
+      \strng{authorbibnamehash}{07ef3b2d18f3529d865221d5403f3f55}
+      \strng{authornamehash}{07ef3b2d18f3529d865221d5403f3f55}
+      \strng{authorfullhash}{07ef3b2d18f3529d865221d5403f3f55}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{media}{text}
+      \field{title}{Методы исторического исследования}
+      \field{year}{2003}
+      \field{pages}{486}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{2_kornev2018}{article}{}
+      \name{author}{1}{}{%
+        {{hash=af2a39dc51052bb6e760b4bbf0692e12}{%
+           family={Корнев},
+           familyi={К\bibinitperiod},
+           given={М.},
+           giveni={М\bibinitperiod}}}%
+      }
+      \strng{namehash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \strng{fullhash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \strng{bibnamehash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \strng{authorbibnamehash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \strng{authornamehash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \strng{authorfullhash}{af2a39dc51052bb6e760b4bbf0692e12}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Вестник РГГУ. Серия: Литературоведение. Языкознание. Культурология}
+      \field{media}{text}
+      \field{title}{Источниковедение 2.0: о новых подходах к работе с источниками в сетевой цифровой среде}
+      \field{year}{2018}
+      \field{number}{11 (44)}
+      \range{number}{-1}
+      \field{pages}{59\bibrangedash 66}
+      \range{pages}{8}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{3_belova1993}{book}{}
+      \name{author}{2}{}{%
+        {{hash=6b083337e3e89be2b1b605f074281212}{%
+           family={Белова},
+           familyi={Б\bibinitperiod},
+           given={Е.},
+           giveni={Е\bibinitperiod}}}%
+        {{hash=9f941057bdad8b4d915e9625144567c5}{%
+           family={Лазарев},
+           familyi={Л\bibinitperiod},
+           given={В.},
+           giveni={В\bibinitperiod}}}%
+      }
+      \strng{namehash}{bbadd35dc8e041c29b49a8897e32328d}
+      \strng{fullhash}{bbadd35dc8e041c29b49a8897e32328d}
+      \strng{bibnamehash}{bbadd35dc8e041c29b49a8897e32328d}
+      \strng{authorbibnamehash}{bbadd35dc8e041c29b49a8897e32328d}
+      \strng{authornamehash}{bbadd35dc8e041c29b49a8897e32328d}
+      \strng{authorfullhash}{bbadd35dc8e041c29b49a8897e32328d}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{title}{Система управления историческими текстами. Принципы построения}
+      \field{year}{1993}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{4_vladimirov2014}{article}{}
+      \name{author}{2}{}{%
+        {{hash=14cea2acfe0d2a287c66c503a180936d}{%
+           family={Владимиров},
+           familyi={В\bibinitperiod},
+           given={В.},
+           giveni={В\bibinitperiod}}}%
+        {{hash=acf7fa3328ff4bcaef67a2dcfd11efa1}{%
+           family={Рыгалова},
+           familyi={Р\bibinitperiod},
+           given={М.},
+           giveni={М\bibinitperiod}}}%
+      }
+      \strng{namehash}{2fa2e04de0464b65c33f052e5059b641}
+      \strng{fullhash}{2fa2e04de0464b65c33f052e5059b641}
+      \strng{bibnamehash}{2fa2e04de0464b65c33f052e5059b641}
+      \strng{authorbibnamehash}{2fa2e04de0464b65c33f052e5059b641}
+      \strng{authornamehash}{2fa2e04de0464b65c33f052e5059b641}
+      \strng{authorfullhash}{2fa2e04de0464b65c33f052e5059b641}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Вестник Пермского университета. Серия: История}
+      \field{media}{text}
+      \field{title}{Зарубежная историография о проблемах и перспективах применения геоинформационных систем в исторических исследованиях}
+      \field{year}{2014}
+      \field{number}{3 (26)}
+      \range{number}{-1}
+      \field{pages}{99\bibrangedash 106}
+      \range{pages}{8}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{5_redkina2021}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dd70b234857138784df2cf22a781465d}{%
+           family={Редькина},
+           familyi={Р\bibinitperiod},
+           given={Н.},
+           giveni={Н\bibinitperiod}}}%
+      }
+      \strng{namehash}{dd70b234857138784df2cf22a781465d}
+      \strng{fullhash}{dd70b234857138784df2cf22a781465d}
+      \strng{bibnamehash}{dd70b234857138784df2cf22a781465d}
+      \strng{authorbibnamehash}{dd70b234857138784df2cf22a781465d}
+      \strng{authornamehash}{dd70b234857138784df2cf22a781465d}
+      \strng{authorfullhash}{dd70b234857138784df2cf22a781465d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Библиосфера}
+      \field{media}{text}
+      \field{title}{Компетенции библиографа: непрерывность развития и точки разрыва}
+      \field{year}{2021}
+      \field{number}{4}
+      \range{number}{1}
+      \field{pages}{59\bibrangedash 77}
+      \range{pages}{19}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{6_barabucci2022}{incollection}{}
+      \name{author}{3}{}{%
+        {{hash=7d34d886dc60593d99adfa083f1544c2}{%
+           family={Barabucci},
+           familyi={B\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5b04ab7d335c7b4a35245f97cdbd18d0}{%
+           family={Tomasi},
+           familyi={T\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+        {{hash=7884a995d429f1d2ab8d93454dc62f4a}{%
+           family={Vitali},
+           familyi={V\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \strng{fullhash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \strng{bibnamehash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \strng{authorbibnamehash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \strng{authornamehash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \strng{authorfullhash}{2f1ac90f5bc867aeba8d4bcaee9fa4ac}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Handbook of Digital Public History}
+      \field{media}{text}
+      \field{title}{Modeling Data Complexity in Public History and Cultural Heritage}
+      \field{year}{2022}
+      \field{pages}{459}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{7_yumashova2016}{book}{}
+      \name{author}{1}{}{%
+        {{hash=e5354b0d2a356cf30c459c5159f6edfc}{%
+           family={Юмашева},
+           familyi={Ю\bibinitperiod},
+           given={Ю.\bibnamedelimi Ю.},
+           giveni={Ю\bibinitperiod\bibinitdelim Ю\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Directmedia}%
+      }
+      \strng{namehash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \strng{fullhash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \strng{bibnamehash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \strng{authorbibnamehash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \strng{authornamehash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \strng{authorfullhash}{e5354b0d2a356cf30c459c5159f6edfc}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{title}{Информатизация архивного дела в Российской Федерации (1991–2015 гг.): научные исследования в области применения информационных технологий}
+      \field{year}{2016}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{8_gorlova2021}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=32f9d31816911fa9d72e4b880942afe5}{%
+           family={Горлова},
+           familyi={Г\bibinitperiod},
+           given={И.},
+           giveni={И\bibinitperiod}}}%
+        {{hash=7a19e5dfceccf7269ce756929c82b720}{%
+           family={Зорин},
+           familyi={З\bibinitperiod},
+           given={А.},
+           giveni={А\bibinitperiod}}}%
+        {{hash=957e6fecdb70630ddca70d4515b7238d}{%
+           family={Гуцалов},
+           familyi={Г\bibinitperiod},
+           given={А.},
+           giveni={А\bibinitperiod}}}%
+      }
+      \strng{namehash}{0d424f01949723d7972be9705ccfca0b}
+      \strng{fullhash}{0d424f01949723d7972be9705ccfca0b}
+      \strng{bibnamehash}{0d424f01949723d7972be9705ccfca0b}
+      \strng{authorbibnamehash}{0d424f01949723d7972be9705ccfca0b}
+      \strng{authornamehash}{0d424f01949723d7972be9705ccfca0b}
+      \strng{authorfullhash}{0d424f01949723d7972be9705ccfca0b}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Москва: Институт Наследия}
+      \field{media}{text}
+      \field{title}{Сохранение цифрового наследия в России: методология, опыт, правовые проблемы и перспективы}
+      \field{year}{2021}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{9_rana2019}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4cacd245eb540b297af083bc9ecda362}{%
+           family={Rana},
+           familyi={R\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{4cacd245eb540b297af083bc9ecda362}
+      \strng{fullhash}{4cacd245eb540b297af083bc9ecda362}
+      \strng{bibnamehash}{4cacd245eb540b297af083bc9ecda362}
+      \strng{authorbibnamehash}{4cacd245eb540b297af083bc9ecda362}
+      \strng{authornamehash}{4cacd245eb540b297af083bc9ecda362}
+      \strng{authorfullhash}{4cacd245eb540b297af083bc9ecda362}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Research Journal of Engineering and Technology}
+      \field{media}{text}
+      \field{title}{Python: Simple though an Important Programming language}
+      \field{year}{2019}
+      \field{pages}{1856\bibrangedash 1858}
+      \range{pages}{3}
+      \field{volume}{6}
+      \range{volume}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{10_sirunyan2020}{article}{useauthor=false}
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=eb39bbc4713b0118366317a14ed623c7}{%
+           family={Sirunyan},
+           familyi={S\bibinitperiod},
+           given={A.\bibnamedelimi M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{2599645aa1bba2943bd06a9dc52f06e5}
+      \strng{authornamehash}{2599645aa1bba2943bd06a9dc52f06e5}
+      \strng{authorfullhash}{2599645aa1bba2943bd06a9dc52f06e5}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The European Physical Journal C}
+      \field{media}{text}
+      \field{title}{Extraction and validation of a new set of CMS PYTHIA 8 tunes from underlying-event measurements}
+      \field{year}{2020}
+      \field{pages}{1\bibrangedash 47}
+      \range{pages}{47}
+      \field{volume}{80}
+      \range{volume}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{11_roganov2008}{book}{}
+      \name{author}{2}{}{%
+        {{hash=0bc9a845e492cffc68fcd4fe4410e0c0}{%
+           family={Роганов},
+           familyi={Р\bibinitperiod},
+           given={Е.\bibnamedelimi А.},
+           giveni={Е\bibinitperiod\bibinitdelim А\bibinitperiod}}}%
+        {{hash=b2e77a7e92bdc9e3168316592d049d40}{%
+           family={Роганова},
+           familyi={Р\bibinitperiod},
+           given={Н.},
+           giveni={Н\bibinitperiod}}}%
+      }
+      \strng{namehash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \strng{fullhash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \strng{bibnamehash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \strng{authorbibnamehash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \strng{authornamehash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \strng{authorfullhash}{2dbcaa704e1f0ecff0a64c9e0fd2b119}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{title}{Программирование на языке Ruby}
+      \field{year}{2008}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{12_schildt2019}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a124c1576b7519716c31d0d012b6256f}{%
+           family={Schildt},
+           familyi={S\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Москва}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill}%
+      }
+      \strng{namehash}{a124c1576b7519716c31d0d012b6256f}
+      \strng{fullhash}{a124c1576b7519716c31d0d012b6256f}
+      \strng{bibnamehash}{a124c1576b7519716c31d0d012b6256f}
+      \strng{authorbibnamehash}{a124c1576b7519716c31d0d012b6256f}
+      \strng{authornamehash}{a124c1576b7519716c31d0d012b6256f}
+      \strng{authorfullhash}{a124c1576b7519716c31d0d012b6256f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{10}
+      \field{media}{text}
+      \field{title}{Java: The Complete Reference}
+      \field{year}{2019}
+      \field{pages}{1487}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{13_davis2020}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=d043611416fde633fab609d5b48fcc94}{%
+           family={Davis},
+           familyi={D\bibinitperiod},
+           given={A.\bibnamedelimi L.},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=d043611416fde633fab609d5b48fcc94}{%
+           family={Davis},
+           familyi={D\bibinitperiod},
+           given={A.\bibnamedelimi L.},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \strng{fullhash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \strng{bibnamehash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \strng{authorbibnamehash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \strng{authornamehash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \strng{authorfullhash}{cd960584d7ba8f14af418cd7f4e8a8f5}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Spring Quick Reference Guide: A Pocket Handbook for Spring Framework, Spring Boot, and More}
+      \field{media}{text}
+      \field{title}{Spring cloud}
+      \field{year}{2020}
+      \field{pages}{231\bibrangedash 246}
+      \range{pages}{16}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{14_niya2019}{book}{}
+      \name{author}{3}{}{%
+        {{hash=82b5dcb80efbe92d7a7db31cd7209063}{%
+           family={Ния},
+           familyi={Н\bibinitperiod},
+           given={Н.},
+           giveni={Н\bibinitperiod}}}%
+        {{hash=becf71ae3a51ec8647491d9fff5d5296}{%
+           family={Гвен},
+           familyi={Г\bibinitperiod},
+           given={Ш.},
+           giveni={Ш\bibinitperiod}}}%
+        {{hash=9ad89ebe83c240a05561f56378947b55}{%
+           family={Тодд},
+           familyi={Т\bibinitperiod},
+           given={П.},
+           giveni={П\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Москва}%
+      }
+      \list{publisher}{1}{%
+        {Питер}%
+      }
+      \strng{namehash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \strng{fullhash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \strng{bibnamehash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \strng{authorbibnamehash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \strng{authornamehash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \strng{authorfullhash}{370ef33d4b1b5ab0bfee9ad2969841b0}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{media}{text}
+      \field{title}{Apache Kafka. Потоковая обработка и анализ данных}
+      \field{year}{2019}
+      \field{pages}{320}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{15_dragoni2017}{incollection}{useauthor=false}
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=f77de1b37a632dffdb43c8109de10995}{%
+           family={Dragoni},
+           familyi={D\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{9d32202e3be38da1970d918a23dd5198}
+      \strng{authornamehash}{9d32202e3be38da1970d918a23dd5198}
+      \strng{authorfullhash}{9d32202e3be38da1970d918a23dd5198}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Present and ulterior software engineering}
+      \field{media}{text}
+      \field{title}{Microservices: yesterday, today, and tomorrow}
+      \field{year}{2017}
+      \field{pages}{195\bibrangedash 216}
+      \range{pages}{22}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{16_schermann2016}{inproceedings}{useauthor=false}
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=88552add5ccc1cf6a397525a70876f4b}{%
+           family={Schermann},
+           familyi={S\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{e2d7b6531d6235cfd8bef365982d213f}
+      \strng{authornamehash}{e2d7b6531d6235cfd8bef365982d213f}
+      \strng{authorfullhash}{e2d7b6531d6235cfd8bef365982d213f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 17th International Middleware Conference}
+      \field{media}{text}
+      \field{title}{Bifrost: Supporting continuous deployment with automated enactment of multiphase live testing strategies}
+      \field{year}{2016}
+      \field{pages}{1\bibrangedash 14}
+      \range{pages}{14}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{trebichavsky2021}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=bca5aedbc38c397be06627fa1484d120}{%
+           family={Trebichavskỳ},
+           familyi={T\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{bca5aedbc38c397be06627fa1484d120}
+      \strng{fullhash}{bca5aedbc38c397be06627fa1484d120}
+      \strng{bibnamehash}{bca5aedbc38c397be06627fa1484d120}
+      \strng{authorbibnamehash}{bca5aedbc38c397be06627fa1484d120}
+      \strng{authornamehash}{bca5aedbc38c397be06627fa1484d120}
+      \strng{authorfullhash}{bca5aedbc38c397be06627fa1484d120}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{note}{Technical Report}
+      \field{title}{API Gateways and Microservice Architectures}
+      \field{year}{2021}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{microsoft_api_gateway}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
+           family={{Microsoft Corporation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://learn.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern}}
+      \field{media}{text}
+      \field{note}{Accessed: 2024}
+      \field{title}{The API gateway pattern versus the Direct client-to-microservice communication}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{newman2015building}{book}{}
+      \name{author}{1}{}{%
+        {{hash=1e5a6f2efe2816bb056061ab04d16620}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly Media}%
+      }
+      \strng{namehash}{1e5a6f2efe2816bb056061ab04d16620}
+      \strng{fullhash}{1e5a6f2efe2816bb056061ab04d16620}
+      \strng{bibnamehash}{1e5a6f2efe2816bb056061ab04d16620}
+      \strng{authorbibnamehash}{1e5a6f2efe2816bb056061ab04d16620}
+      \strng{authornamehash}{1e5a6f2efe2816bb056061ab04d16620}
+      \strng{authorfullhash}{1e5a6f2efe2816bb056061ab04d16620}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1st}
+      \field{isbn}{978-1491950357}
+      \field{media}{text}
+      \field{title}{Building Microservices: Designing Fine-Grained Systems}
+      \field{year}{2015}
+      \field{pages}{600}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{zhao2018management}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=326e7e67b0b4605a06b13d7b7d37ab75}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=526445607261f4ee0548c0ce9a952cc6}{%
+           family={Jing},
+           familyi={J\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ccf87731e812c2775e6cdb36ce249710}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IOP Publishing}%
+      }
+      \strng{namehash}{78e3d5339e1e523520278e267c861416}
+      \strng{fullhash}{78e3d5339e1e523520278e267c861416}
+      \strng{bibnamehash}{78e3d5339e1e523520278e267c861416}
+      \strng{authorbibnamehash}{78e3d5339e1e523520278e267c861416}
+      \strng{authornamehash}{78e3d5339e1e523520278e267c861416}
+      \strng{authorfullhash}{78e3d5339e1e523520278e267c861416}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Journal of Physics: Conference Series}
+      \field{media}{text}
+      \field{title}{Management of API gateway based on micro-service architecture}
+      \field{year}{2018}
+      \field{pages}{032032}
+      \range{pages}{1}
+      \field{volume}{1087}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.1088/1742-6596/1087/3/032032
+      \endverb
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{alkhodary2023evaluation}{article}{}
+      \name{author}{1}{}{%
+        {{hash=2b780f8c244cd52e549725accadc5f71}{%
+           family={Alkhodary},
+           familyi={A\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{2b780f8c244cd52e549725accadc5f71}
+      \strng{fullhash}{2b780f8c244cd52e549725accadc5f71}
+      \strng{bibnamehash}{2b780f8c244cd52e549725accadc5f71}
+      \strng{authorbibnamehash}{2b780f8c244cd52e549725accadc5f71}
+      \strng{authornamehash}{2b780f8c244cd52e549725accadc5f71}
+      \strng{authorfullhash}{2b780f8c244cd52e549725accadc5f71}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Computer Science and Engineering}
+      \field{media}{text}
+      \field{note}{Accessed: October 2023}
+      \field{title}{The Evaluation of Using Backend-For-Frontend in a Microservices Environment}
+      \field{year}{2023}
+      \field{volume}{6}
+      \range{volume}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{carnell2021spring}{book}{}
+      \name{author}{2}{}{%
+        {{hash=aa23f72e3732368ee04b73acc52ad5e7}{%
+           family={Carnell},
+           familyi={C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9c8b2b771c3cf85767d40598afe99aef}{%
+           family={Sánchez},
+           familyi={S\bibinitperiod},
+           given={I.\bibnamedelimi H.},
+           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Simon \& Schuster}%
+      }
+      \strng{namehash}{a6f653c40f5e36ca09e2e286259b2385}
+      \strng{fullhash}{a6f653c40f5e36ca09e2e286259b2385}
+      \strng{bibnamehash}{a6f653c40f5e36ca09e2e286259b2385}
+      \strng{authorbibnamehash}{a6f653c40f5e36ca09e2e286259b2385}
+      \strng{authornamehash}{a6f653c40f5e36ca09e2e286259b2385}
+      \strng{authorfullhash}{a6f653c40f5e36ca09e2e286259b2385}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-1617296956}
+      \field{media}{text}
+      \field{title}{Spring Microservices in Action}
+      \field{year}{2021}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{spring_cloud_gateway}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=48f029d1267de7768629e5c3289c443b}{%
+           family={{Spring Team}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{48f029d1267de7768629e5c3289c443b}
+      \strng{fullhash}{48f029d1267de7768629e5c3289c443b}
+      \strng{bibnamehash}{48f029d1267de7768629e5c3289c443b}
+      \strng{authorbibnamehash}{48f029d1267de7768629e5c3289c443b}
+      \strng{authornamehash}{48f029d1267de7768629e5c3289c443b}
+      \strng{authorfullhash}{48f029d1267de7768629e5c3289c443b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://cloud.spring.io/spring-cloud-gateway}}
+      \field{media}{text}
+      \field{note}{Official Documentation}
+      \field{title}{Spring Cloud Gateway: API Gateway built on top of the Spring Ecosystem}
+      \field{year}{2024}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{richardson_circuit_breaker}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b577204a7c61f6bf5df3f6c8f34fa05a}{%
+           family={Richardson},
+           familyi={R\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{fullhash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{bibnamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authorbibnamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authornamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authorfullhash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://microservices.io/patterns/reliability/circuit-breaker.html}}
+      \field{media}{text}
+      \field{note}{Microservices Patterns}
+      \field{title}{Pattern: Circuit Breaker}
+      \field{year}{2024}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{richardson2018microservices}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b577204a7c61f6bf5df3f6c8f34fa05a}{%
+           family={Richardson},
+           familyi={R\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Simon \& Schuster}%
+      }
+      \strng{namehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{fullhash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{bibnamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authorbibnamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authornamehash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \strng{authorfullhash}{b577204a7c61f6bf5df3f6c8f34fa05a}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1st}
+      \field{isbn}{978-1617294549}
+      \field{media}{text}
+      \field{title}{Microservices Patterns: With Examples in Java}
+      \field{year}{2018}
+      \field{pages}{520}
+      \range{pages}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{18_hardt2012}{report}{}
+      \name{author}{1}{}{%
+        {{hash=762ea4718ee51f6546a8c424f72dd8df}{%
+           family={Hardt},
+           familyi={H\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{762ea4718ee51f6546a8c424f72dd8df}
+      \strng{fullhash}{762ea4718ee51f6546a8c424f72dd8df}
+      \strng{bibnamehash}{762ea4718ee51f6546a8c424f72dd8df}
+      \strng{authorbibnamehash}{762ea4718ee51f6546a8c424f72dd8df}
+      \strng{authornamehash}{762ea4718ee51f6546a8c424f72dd8df}
+      \strng{authorfullhash}{762ea4718ee51f6546a8c424f72dd8df}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{title}{The OAuth 2.0 authorization framework}
+      \field{type}{Technical report}
+      \field{year}{2012}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{openid_foundation2014}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=bfaa132c61fbf89d68e9856b67ca8e2d}{%
+           family={{OpenID Foundation}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \strng{fullhash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \strng{bibnamehash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \strng{authorbibnamehash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \strng{authornamehash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \strng{authorfullhash}{bfaa132c61fbf89d68e9856b67ca8e2d}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{media}{text}
+      \field{month}{11}
+      \field{note}{Final Specification}
+      \field{title}{{OpenID Connect Core 1.0 incorporating errata set 1}}
+      \field{year}{2014}
+      \verb{urlraw}
+      \verb https://openid.net/specs/openid-connect-core-1_0.html
+      \endverb
+      \verb{url}
+      \verb https://openid.net/specs/openid-connect-core-1_0.html
+      \endverb
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{richer2017}{book}{}
+      \name{author}{2}{}{%
+        {{hash=20d55dc530e6c9a90b9763b664137d42}{%
+           family={Richer},
+           familyi={R\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e8635ed20ae7b8c7788c56e1d01db946}{%
+           family={Sanso},
+           familyi={S\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Shelter Island, NY}%
+      }
+      \list{publisher}{1}{%
+        {Manning Publications}%
+      }
+      \strng{namehash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \strng{fullhash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \strng{bibnamehash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \strng{authorbibnamehash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \strng{authornamehash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \strng{authorfullhash}{a1351bf9ba32c00c42b4e05885d53a23}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1617293276}
+      \field{media}{text}
+      \field{title}{OAuth 2 in Action}
+      \field{year}{2017}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{lodderstedt2013}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c810c6e897884044b611eb7a087c09e3}{%
+           family={Lodderstedt},
+           familyi={L\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod}}}%
+        {{hash=3902c8dcb15af94288a53ead1b57008d}{%
+           family={McGloin},
+           familyi={M\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+        {{hash=eb1b3cc007c0a012a430f7ad63cf27fb}{%
+           family={Hunt},
+           familyi={H\bibinitperiod},
+           given={Phil},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{23548b4963243641bb7ac48e2be7b4c6}
+      \strng{fullhash}{23548b4963243641bb7ac48e2be7b4c6}
+      \strng{bibnamehash}{23548b4963243641bb7ac48e2be7b4c6}
+      \strng{authorbibnamehash}{23548b4963243641bb7ac48e2be7b4c6}
+      \strng{authornamehash}{23548b4963243641bb7ac48e2be7b4c6}
+      \strng{authorfullhash}{23548b4963243641bb7ac48e2be7b4c6}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Internet Engineering Task Force}
+      \field{media}{text}
+      \field{month}{1}
+      \field{title}{OAuth 2.0 Threat Model and Security Considerations}
+      \field{type}{RFC}
+      \field{year}{2013}
+      \field{number}{6819}
+      \range{number}{1}
+      \verb{urlraw}
+      \verb https://tools.ietf.org/html/rfc6819
+      \endverb
+      \verb{url}
+      \verb https://tools.ietf.org/html/rfc6819
+      \endverb
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{fett2016}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=973bd24bb2d95a8706c9b3f9ad060b99}{%
+           family={Fett},
+           familyi={F\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b7d2dedb64572e046a0efa6112d19545}{%
+           family={Küsters},
+           familyi={K\bibinitperiod},
+           given={Ralf},
+           giveni={R\bibinitperiod}}}%
+        {{hash=b0a75a9b2813c6a1c860cd04a0542f2d}{%
+           family={Schmitz},
+           familyi={S\bibinitperiod},
+           given={Guido},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Vienna, Austria}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{758483a941325415c1f95cb4951a9093}
+      \strng{fullhash}{758483a941325415c1f95cb4951a9093}
+      \strng{bibnamehash}{758483a941325415c1f95cb4951a9093}
+      \strng{authorbibnamehash}{758483a941325415c1f95cb4951a9093}
+      \strng{authornamehash}{758483a941325415c1f95cb4951a9093}
+      \strng{authorfullhash}{758483a941325415c1f95cb4951a9093}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security}
+      \field{media}{text}
+      \field{title}{A Comprehensive Formal Security Analysis of OAuth 2.0}
+      \field{year}{2016}
+      \field{pages}{1204\bibrangedash 1215}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1145/2976749.2978385
+      \endverb
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{19_weingartner2017}{inproceedings}{useauthor=false}
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=d91366e62cc12f137c12541b03ee5993}{%
+           family={Weingärtner},
+           familyi={W\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{authorbibnamehash}{f27645df92c533cda339d9ba3c53c345}
+      \strng{authornamehash}{f27645df92c533cda339d9ba3c53c345}
+      \strng{authorfullhash}{f27645df92c533cda339d9ba3c53c345}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2017 IEEE/ACS 14th International Conference on Computer Systems and Applications (AICCSA)}
+      \field{media}{text}
+      \field{title}{Improving OpenID Connect federation’s interoperability with web semantics}
+      \field{year}{2017}
+      \field{pages}{1269\bibrangedash 1276}
+      \range{pages}{8}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+    \entry{sakimura2015}{article}{useauthor=false}
+      \name{author}{5}{}{%
+        {{hash=34e6848475fd66697bfcb80787f2aef0}{%
+           family={Sakimura},
+           familyi={S\bibinitperiod},
+           given={Nat},
+           giveni={N\bibinitperiod}}}%
+        {{hash=81e40ae87af997090fa9a9696e364c65}{%
+           family={Bradley},
+           familyi={B\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5a25bc91f524ca6dfc2ecf9f4a13903c}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=67fdc7ee2ba54b4946b082c9c137901f}{%
+           family={Medeiros},
+           familyi={M\bibinitperiod},
+           given={Breno},
+           giveni={B\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=289d5d37708c3a07065c8ce8081d0c43}{%
+           family={Mortimore},
+           familyi={M\bibinitperiod},
+           given={Chuck},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {USENIX Association}%
+      }
+      \strng{authorbibnamehash}{d6af5f57a30d58932af0de30292e9dc9}
+      \strng{authornamehash}{d6af5f57a30d58932af0de30292e9dc9}
+      \strng{authorfullhash}{c11fa91a3ed7b9e4f9d3d1376d90d11f}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Login: The USENIX Magazine}
+      \field{media}{text}
+      \field{title}{OpenID Connect: An Identity Layer on Top of OAuth 2.0}
+      \field{year}{2015}
+      \field{number}{5}
+      \range{number}{1}
+      \field{pages}{25\bibrangedash 28}
+      \range{pages}{4}
+      \field{volume}{40}
+      \range{volume}{1}
+      \keyw{,biblioexternal,bibliofull}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

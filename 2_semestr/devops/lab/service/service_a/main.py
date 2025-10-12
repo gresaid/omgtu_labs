@@ -14,15 +14,8 @@ RABBITMQ_PORT = int(os.getenv("RABBITMQ_PORT", 5672))
 RABBITMQ_USER = os.getenv("RABBITMQ_USER", "guest")
 RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "guest")
 
-POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
-POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", 5432))
-POSTGRES_DB = os.getenv("POSTGRES_DB", "{{ postgres_db }}")
-POSTGRES_USER = os.getenv("POSTGRES_USER", "{{ postgres_user }}")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "{{ postgres_password }}")
-
 
 def connect_to_rabbitmq():
-    """Establish connection to RabbitMQ and return the connection and channel"""
     try:
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(
@@ -44,7 +37,6 @@ def connect_to_rabbitmq():
 
 
 def run_service():
-    """Run Service A - publish timestamp messages every 10 seconds"""
     connection, channel = connect_to_rabbitmq()
     logger.info("Service A started. Publishing timestamps every 10 seconds...")
 

@@ -1,0 +1,232 @@
+%%% Переопределение именований, если иначе не сработает %%%
+%\gappto\captionsrussian{
+%    \renewcommand{\chaptername}{Глава}
+%    \renewcommand{\appendixname}{Приложение} % (ГОСТ Р 7.0.11-2011, 5.7)
+%}
+
+%%% Изображения %%%
+\graphicspath{{images/}{Dissertation/images/}}         % Пути к изображениям
+
+%%% Интервалы %%%
+%% По новому ГОСТу требуется междустрочный интервал 1.5
+%% Реализация средствами класса (на основе setspace) ближе к типографской классике.
+%% И правит сразу и в таблицах (если со звёздочкой)
+%\DoubleSpacing*     % Двойной интервал
+\OnehalfSpacing*    % Полуторный интервал (1.5)
+%\setSpacing{1.42}   % Полуторный интервал, подобный Ворду (возможно, стоит включать вместе с предыдущей строкой)
+
+%%% Макет страницы %%%
+% Выставляем значения полей по новому ГОСТу: верх и низ по 2см, лево 3см, право 1.5см
+\geometry{a4paper, top=2cm, bottom=2cm, left=3cm, right=1.5cm, nofoot, nomarginpar} %, heightrounded, showframe
+\setlength{\topskip}{0pt}   %размер дополнительного верхнего поля
+\setlength{\footskip}{12.3pt} % снимет warning, согласно https://tex.stackexchange.com/a/334346
+
+%%% Выравнивание и переносы %%%
+%% http://tex.stackexchange.com/questions/241343/what-is-the-meaning-of-fussy-sloppy-emergencystretch-tolerance-hbadness
+%% http://www.latex-community.org/forum/viewtopic.php?p=70342#p70342
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em % В случае проблем регулировать в первую очередь
+\hfuzz 0.3pt
+\vfuzz \hfuzz
+%\raggedbottom
+%\sloppy                 % Избавляемся от переполнений
+\clubpenalty=10000      % Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000     % Запрещаем разрыв страницы после последней строки абзаца
+\brokenpenalty=4991     % Ограничение на разрыв страницы, если строка заканчивается переносом
+
+%%% Абзацный отступ %%%
+\setlength{\parindent}{1.25cm} % Абзацный отступ 1.25 см
+\setlength{\parskip}{0pt} % Убираем интервалы между абзацами
+
+%%% Переопределение абзацного отступа из styles.tex %%%
+\AtBeginDocument{%
+    \setlength{\parindent}{1.25cm}     % Абзацный отступ 1.25см по новому ГОСТу (было 2.5em)
+    \setlength{\parskip}{0pt}          % Убираем пустые интервалы до и после абзацев
+}
+
+%%% Блок управления параметрами для выравнивания заголовков в тексте %%%
+\newlength{\otstuplen}
+\setlength{\otstuplen}{\parindent} % Абзацный отступ для заголовков разделов/подразделов
+
+% Заголовки основных структурных единиц (аннотация, содержание, введение, заключение и т.д.)
+% CAPS LOCK, без жира, по центру, без абзацного отступа
+\newcommand{\structuralheading}[1]{%
+    \begin{center}%
+    \MakeUppercase{#1}%
+    \end{center}%
+}
+
+%%% Оглавление %%%
+\renewcommand{\cftchapterdotsep}{\cftdotsep}                % отбивка точками до номера страницы начала главы/раздела
+
+%% По новому ГОСТу нумерация БЕЗ точек в конце
+\renewcommand\cftchapteraftersnum{\space}       % убираем точку после номера раздела в оглавлении
+\renewcommand\cftsectionaftersnum{\space}       % убираем точку после номера подраздела в оглавлении
+\renewcommand\cftsubsectionaftersnum{\space}    % убираем точку после номера подподраздела в оглавлении
+\renewcommand\cftsubsubsectionaftersnum{\space} % убираем точку после номера подподподраздела в оглавлении
+
+% Отступы в содержании согласно ГОСТу
+\setlength{\cftsectionindent}{2em}      % подразделы - отступ 2 знака от разделов
+\setlength{\cftsubsectionindent}{4em}   % пункты - отступ 4 знака от разделов
+
+%% Переносить слова в заголовке не допускается. Заголовки в оглавлении должны точно повторять заголовки в тексте.
+\setrmarg{2.55em plus1fil}                             %To have the (sectional) titles in the ToC, etc., typeset ragged right with no hyphenation
+\renewcommand{\cftchapterpagefont}{\normalfont}        % нежирные номера страниц у глав в оглавлении
+\renewcommand{\cftchapterleader}{\cftdotfill{\cftchapterdotsep}}% нежирные точки до номеров страниц у глав в оглавлении
+
+% Настройки нумерации без точек в тексте
+\AfterEndPreamble{% без этого polyglossia сама всё переопределяет
+    \setsecnumformat{\csname the#1\endcsname\space} % убираем точки в нумерации заголовков
+}
+
+\renewcommand*{\cftappendixname}{\appendixname\space} % Слово Приложение в оглавлении
+
+%%% Колонтитулы %%%
+% Порядковый номер страницы печатают на середине верхнего поля страницы
+\makeevenhead{plain}{}{}{}
+\makeoddhead{plain}{}{}{}
+\makeevenfoot{plain}{}{\rmfamily\thepage}{}
+\makeoddfoot{plain}{}{\rmfamily\thepage}{}
+\pagestyle{plain}
+
+%%% добавить Стр. над номерами страниц в оглавлении
+%%% http://tex.stackexchange.com/a/306950
+\newif\ifendTOC
+
+\newcommand*{\tocheader}{
+    \ifnumequal{\value{pgnum}}{1}{%
+        \ifendTOC\else\hbox to \linewidth%
+        {\noindent{}~\hfill{Стр.}}\par%
+        \ifnumless{\value{page}}{3}{}{%
+            \vspace{0.5\onelineskip}
+        }
+        \afterpage{\tocheader}
+        \fi%
+    }{}%
+}%
+
+%%% Оформление заголовков глав, разделов, подразделов %%%
+%% Базовый размер шрифта 14 пт согласно новому ГОСТу
+\newcommand{\basegostsectionfont}{\fontsize{14pt}{21pt}\selectfont\bfseries} % 14 пт с интервалом 1.5
+\newcommand{\basegostparagraphfont}{\fontsize{14pt}{21pt}\selectfont} % для пунктов - без жира
+
+% Стиль глав (основных структурных единиц)
+\makechapterstyle{thesisgost}{%
+    \chapterstyle{default}
+    \setlength{\beforechapskip}{0pt}
+    \setlength{\midchapskip}{0pt}
+    \setlength{\afterchapskip}{\onelineskip} % отделяется пустой строкой
+    % Основные структурные единицы: CAPS LOCK, без жира, по центру
+    \renewcommand*{\chapnamefont}{\fontsize{14pt}{21pt}\selectfont}
+    \renewcommand*{\chapnumfont}{\fontsize{14pt}{21pt}\selectfont}
+    \renewcommand*{\chaptitlefont}{\fontsize{14pt}{21pt}\selectfont}
+    \renewcommand*{\chapterheadstart}{}
+    \renewcommand*{\afterchapternum}{}     % без точки после номера
+    \renewcommand*{\printchapternum}{\centering}
+    \renewcommand*{\printchaptername}{}
+    \renewcommand*{\printchapternonum}{\centering}
+    \renewcommand*{\printchaptertitle}[1]{\centering\MakeUppercase{##1}}
+}
+
+\makeatletter
+\makechapterstyle{thesisgostchapname}{%
+    \chapterstyle{thesisgost}
+    \renewcommand*{\printchapternum}{\chapnumfont \thechapter}
+    \renewcommand*{\printchaptername}{\centering\chapnamefont \MakeUppercase{\@chapapp}} %
+}
+\makeatother
+
+\chapterstyle{thesisgost}
+
+% Разделы: абзацный отступ, жир, выравнивание по ширине/левому краю
+\setsecheadstyle{\basegostsectionfont}
+\setsecindent{\otstuplen} % абзацный отступ
+
+% Подразделы: абзацный отступ, жир, выравнивание по ширине/левому краю
+\setsubsecheadstyle{\basegostsectionfont}
+\setsubsecindent{\otstuplen} % абзацный отступ
+
+% Пункты: абзацный отступ, БЕЗ жира, выравнивание по ширине/левому краю
+\setsubsubsecheadstyle{\basegostparagraphfont} % без жира для пунктов
+\setsubsubsecindent{\otstuplen} % абзацный отступ
+
+\sethangfrom{\noindent #1} %все заголовки подразделов с абзацным отступом
+
+\ifnumequal{\value{chapstyle}}{1}{%
+    \chapterstyle{thesisgostchapname}
+    \renewcommand*{\cftchaptername}{\chaptername\space} % будет вписано слово Глава перед каждым номером раздела в оглавлении
+}{}%
+
+%%% Интервалы между заголовками
+% Заголовки отделяют от текста пустой строкой сверху и снизу
+\setbeforesecskip{\onelineskip}
+\setaftersecskip{\onelineskip}
+\setbeforesubsecskip{\onelineskip}
+\setaftersubsecskip{\onelineskip}
+\setbeforesubsubsecskip{\onelineskip}
+\setaftersubsubsecskip{\onelineskip}
+
+%%% Убираем дополнительные отступы %%%
+% Убираем отступы до и после различных элементов в обычном тексте
+\setlength{\abovedisplayskip}{\baselineskip}      % пустая строка перед формулами
+\setlength{\belowdisplayskip}{\baselineskip}      % пустая строка после формул
+\setlength{\abovedisplayshortskip}{\baselineskip} % пустая строка перед короткими формулами
+\setlength{\belowdisplayshortskip}{\baselineskip} % пустая строка после коротких формул
+
+% Настройки для таблиц и рисунков - пустые строки до и после
+\setlength{\floatsep}{\baselineskip}        % расстояние между соседними флоатами
+\setlength{\textfloatsep}{\baselineskip}    % расстояние между флоатом и текстом
+\setlength{\intextsep}{\baselineskip}       % расстояние вокруг флоатов внутри текста
+
+%%% Вертикальные интервалы глав (\chapter) в оглавлении как и у заголовков
+% раскомментировать следующие 2
+% \setlength{\cftbeforechapterskip}{0pt plus 0pt}   % ИЛИ эти 2 строки из учебника
+% \renewcommand*{\insertchapterspace}{}
+% или эту
+% \renewcommand*{\cftbeforechapterskip}{0em}
+
+%%% Блок дополнительного управления размерами заголовков
+\ifnumequal{\value{headingsize}}{1}{% Если нужны пропорциональные заголовки
+    \renewcommand{\basegostsectionfont}{\large\bfseries}
+    \renewcommand*{\chapnamefont}{\Large}
+    \renewcommand*{\chapnumfont}{\Large}
+    \renewcommand*{\chaptitlefont}{\Large}
+}{}
+
+%%% Счётчики %%%
+
+%% Упрощённые настройки шаблона диссертации: нумерация формул, таблиц, рисунков
+\ifnumequal{\value{contnumeq}}{1}{%
+    \counterwithout{equation}{chapter} % Убираем связанность номера формулы с номером главы/раздела
+}{}
+\ifnumequal{\value{contnumfig}}{1}{%
+    \counterwithout{figure}{chapter}   % Убираем связанность номера рисунка с номером главы/раздела
+}{}
+\ifnumequal{\value{contnumtab}}{1}{%
+    \counterwithout{table}{chapter}    % Убираем связанность номера таблицы с номером главы/раздела
+}{}
+
+\AfterEndPreamble{
+%% регистрируем счётчики в системе totcounter
+    \regtotcounter{totalcount@figure}
+    \regtotcounter{totalcount@table}       % Если иным способом поставить в преамбуле то ошибка в числе таблиц
+    \regtotcounter{TotPages}               % Если иным способом поставить в преамбуле то ошибка в числе страниц
+    \newtotcounter{totalappendix}
+    \newtotcounter{totalchapter}
+}
+
+%%% Дополнительные команды для оформления по новому ГОСТу %%%
+
+% Команда для оформления основных структурных единиц
+\newcommand{\mainsection}[1]{%
+    \chapter*{\MakeUppercase{#1}}%
+    \addcontentsline{toc}{chapter}{\MakeUppercase{#1}}%
+}
+
+% Команда для оформления приложений
+\newcommand{\appendixsection}[1]{%
+    \chapter*{\MakeUppercase{ПРИЛОЖЕНИЕ} \arabic{totalappendix} \\ \MakeUppercase{#1}}%
+    \addcontentsline{toc}{chapter}{\MakeUppercase{ПРИЛОЖЕНИЕ} \arabic{totalappendix}. \MakeUppercase{#1}}%
+    \stepcounter{totalappendix}%
+}
