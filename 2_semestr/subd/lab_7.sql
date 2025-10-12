@@ -134,13 +134,20 @@ execute function check_master_rank_upgrade();
 
 -- обновления стоимости ремонта для проверки первого триггера:
 update repairs set repair_cost = 9000.00 where repair_id = 1;
-
+select * from repair_cost_history;
 -- добавления нового ремонта для проверки второго триггера:
+
+select * from masters;
+select * from repairs;
+
+delete from masters where master_id = 6;
 insert into masters (master_id, last_name, first_name, middle_name, qualification_rank, hire_date) values
-(6, 'тестов', 'тест', 'тестович', 1, '2020-03-15')
+(8, 'Вовчик', 'тест', 'тестович', 1, '2020-03-15')
+
+delete from repairs where master_id = 17;
 
 insert into repairs (repair_id, device_in_repair_id, device_id, master_id, owner_full_name, receipt_date, malfunction_type, repair_cost)
 values
-(15, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
-(16, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
-(17, 'rep-2023-007', 1, 6, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00);
+(21, 'rep-2023-007', 1, 8, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
+(22, 'rep-2023-007', 1, 8, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00),
+(23, 'rep-2023-007', 1, 8, 'тестовый клиент2', current_date, 'тестовая поломка2', 5000.00);

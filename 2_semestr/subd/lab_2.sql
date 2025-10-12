@@ -107,7 +107,7 @@ from
     deliveries
 where
     name_company like '%ед';
-
+select * from deliveries;
 -- 13. вывод издательств, содержащих в названии 'софт' (мен)
 select
     publish
