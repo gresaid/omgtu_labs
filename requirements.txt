@@ -1,1 +1,2 @@
 matplotlib~=3.9.2
+deap~=1.4.3

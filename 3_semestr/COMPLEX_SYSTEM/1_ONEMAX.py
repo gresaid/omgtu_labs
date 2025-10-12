@@ -175,9 +175,7 @@ def run_genetic_algorithm():
     plt.legend(fontsize=10)
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
-    plt.savefig('fitness_evolution.png', dpi=300)  # Сохранение графика в файл
     plt.show()
 
-# Запуск алгоритма
 if __name__ == "__main__":
     run_genetic_algorithm()
