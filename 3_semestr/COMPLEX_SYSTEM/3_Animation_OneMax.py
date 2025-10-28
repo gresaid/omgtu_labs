@@ -1,8 +1,9 @@
 import random
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
+from deap import base, creator, tools
 from matplotlib.animation import FuncAnimation
-from deap import base, creator, tools, algorithms
 
 # === КОНСТАНТЫ ЗАДАЧИ И АЛГОРИТМА ===
 

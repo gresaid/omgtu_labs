@@ -24,6 +24,7 @@ creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 # определение класса частицы на основе ndarray:
 creator.create("Particle", np.ndarray, fitness=creator.FitnessMin, speed=None, best=None)
 
+
 # создание и инициализация новой частицы:
 def createParticle():
     particle = creator.Particle(np.random.uniform(MIN_START_POSITION,
@@ -32,11 +33,13 @@ def createParticle():
     particle.speed = np.random.uniform(MIN_SPEED, MAX_SPEED, DIMENSIONS)
     return particle
 
+
 # создание оператора 'particleCreator' для заполнения экземпляра частицы:
 toolbox.register("particleCreator", createParticle)
 
 # создание оператора 'population' для генерации списка частиц:
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.particleCreator)
+
 
 # обновление частицы:
 def updateParticle(particle, best):
@@ -57,7 +60,9 @@ def updateParticle(particle, best):
     # обновление позиции частицы:
     particle[:] = particle + particle.speed
 
+
 toolbox.register("update", updateParticle)
+
 
 # функция Химмельблау:
 def himmelblau(particle):
@@ -66,7 +71,9 @@ def himmelblau(particle):
     f = (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
     return f,  # возвращает кортеж
 
+
 toolbox.register("evaluate", himmelblau)
+
 
 # основной поток алгоритма:
 def main():
@@ -110,6 +117,7 @@ def main():
     # вывод информации о лучшем найденном решении:
     print("-- Лучшая частица = ", best)
     print("-- Лучшая фитнес-оценка = ", best.fitness.values[0])
+
 
 if __name__ == "__main__":
     main()

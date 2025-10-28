@@ -1,15 +1,14 @@
+import random
+
+import matplotlib.pyplot as plt
+import numpy
+import seaborn as sns
 from deap import base
 from deap import creator
 from deap import tools
 
-import random
-import numpy
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import friedman
 import elitism
+import friedman
 
 NUM_OF_FEATURES = 15  # количество признаков
 NUM_OF_SAMPLES = 60  # количество образцов
@@ -45,16 +44,19 @@ toolbox.register("individualCreator", tools.initRepeat, creator.Individual, tool
 # создание оператора популяции для генерации списка индивидуумов:
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.individualCreator)
 
+
 # вычисление фитнес-оценки:
 def friedmanTestScore(individual):
     return friedman.getMSE(individual),  # возвращает кортеж
+
 
 toolbox.register("evaluate", friedmanTestScore)
 
 # генетические операторы для бинарного списка:
 toolbox.register("select", tools.selTournament, tournsize=2)
 toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutFlipBit, indpb=1.0/len(friedman))
+toolbox.register("mutate", tools.mutFlipBit, indpb=1.0 / len(friedman))
+
 
 # поток генетического алгоритма:
 def main():
@@ -89,6 +91,7 @@ def main():
     plt.ylabel('Минимальная / Средняя фитнес-оценка')
     plt.title('Минимальная и средняя фитнес-оценка по поколениям')
     plt.show()
+
 
 if __name__ == "__main__":
     main()

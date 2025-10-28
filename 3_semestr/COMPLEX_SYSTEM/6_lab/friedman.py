@@ -1,12 +1,11 @@
+import matplotlib.pyplot as plt
 import numpy as np
-
-from sklearn import model_selection
+import seaborn as sns
 from sklearn import datasets
-
+from sklearn import model_selection
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 class Friedman1Test:
     """This class encapsulates the Friedman1 regression test for feature selection
@@ -32,7 +31,8 @@ class Friedman1Test:
 
         # divide the data to a training set and a validation set:
         self.X_train, self.X_validation, self.y_train, self.y_validation = \
-            model_selection.train_test_split(self.X, self.y, test_size=self.VALIDATION_SIZE, random_state=self.randomSeed)
+            model_selection.train_test_split(self.X, self.y, test_size=self.VALIDATION_SIZE,
+                                             random_state=self.randomSeed)
 
         self.regressor = GradientBoostingRegressor(random_state=self.randomSeed)
 
@@ -41,7 +41,6 @@ class Friedman1Test:
         :return: the total number of features
         """
         return self.numFeatures
-
 
     def getMSE(self, zeroOneList):
         """

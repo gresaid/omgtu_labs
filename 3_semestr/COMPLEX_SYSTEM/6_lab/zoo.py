@@ -1,7 +1,7 @@
-import random
 from pandas import read_csv
 from sklearn import model_selection
 from sklearn.tree import DecisionTreeClassifier
+
 
 class Zoo:
     """Класс, инкапсулирующий тест Zoo для классификатора"""
@@ -46,10 +46,12 @@ class Zoo:
         currentX = self.X.drop(self.X.columns[zeroIndices], axis=1)
 
         # выполнение кросс-валидации и определение точности классификатора:
-        cv_results = model_selection.cross_val_score(self.classifier, currentX, self.y, cv=self.kfold, scoring='accuracy')
+        cv_results = model_selection.cross_val_score(self.classifier, currentX, self.y, cv=self.kfold,
+                                                     scoring='accuracy')
 
         # возврат средней точности:
         return cv_results.mean()
+
 
 # тестирование класса:
 def main():
@@ -58,6 +60,7 @@ def main():
 
     allOnes = [1] * len(zoo)
     print("-- Все признаки выбраны: ", allOnes, ", точность = ", zoo.getMeanAccuracy(allOnes))
+
 
 if __name__ == "__main__":
     main()

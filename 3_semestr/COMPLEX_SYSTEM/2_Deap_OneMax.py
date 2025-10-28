@@ -1,4 +1,5 @@
 import random
+
 import matplotlib.pyplot as plt
 from deap import base, creator, tools, algorithms
 

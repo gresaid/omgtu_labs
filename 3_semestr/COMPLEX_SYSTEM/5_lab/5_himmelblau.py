@@ -1,12 +1,11 @@
+import random
+
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
 from deap import base
 from deap import creator
 from deap import tools
-
-import random
-import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 import elitism
 
@@ -34,9 +33,11 @@ creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 # создание класса Individual на основе списка:
 creator.create("Individual", list, fitness=creator.FitnessMin)
 
+
 # вспомогательная функция для создания случайных вещественных чисел в заданном диапазоне [low, up]:
 def randomFloat(low, up):
     return [random.uniform(a, b) for a, b in zip([low] * DIMENSIONS, [up] * DIMENSIONS)]
+
 
 # создание оператора для генерации случайных чисел в заданном диапазоне и измерении:
 toolbox.register("attr_float", randomFloat, BOUND_LOW, BOUND_UP)
@@ -47,6 +48,7 @@ toolbox.register("individualCreator", tools.initIterate, creator.Individual, too
 # создание оператора популяции для генерации списка индивидуумов:
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.individualCreator)
 
+
 # функция Химмельблау как фитнес-функция для индивидуума:
 def himmelblau(individual):
     x = individual[0]
@@ -54,12 +56,15 @@ def himmelblau(individual):
     f = (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
     return f,  # возвращает кортеж
 
+
 toolbox.register("evaluate", himmelblau)
 
 # генетические операторы:
 toolbox.register("select", tools.selTournament, tournsize=2)
 toolbox.register("mate", tools.cxSimulatedBinaryBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR)
-toolbox.register("mutate", tools.mutPolynomialBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR, indpb=1.0/DIMENSIONS)
+toolbox.register("mutate", tools.mutPolynomialBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR,
+                 indpb=1.0 / DIMENSIONS)
+
 
 # поток генетического алгоритма:
 def main():
@@ -76,7 +81,7 @@ def main():
 
     # выполнение потока генетического алгоритма с элитизмом:
     population, logbook = elitism.eaSimpleWithElitism(population, toolbox, cxpb=P_CROSSOVER, mutpb=P_MUTATION,
-                                              ngen=MAX_GENERATIONS, stats=stats, halloffame=hof, verbose=True)
+                                                      ngen=MAX_GENERATIONS, stats=stats, halloffame=hof, verbose=True)
 
     # вывод информации о лучшем найденном решении:
     best = hof.items[0]
@@ -109,6 +114,7 @@ def main():
     plt.title('Минимальная и средняя фитнес-оценка по поколениям')
 
     plt.show()
+
 
 if __name__ == "__main__":
     main()

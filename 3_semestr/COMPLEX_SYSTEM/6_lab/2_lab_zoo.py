@@ -1,15 +1,14 @@
+import random
+
+import matplotlib.pyplot as plt
+import numpy
+import seaborn as sns
 from deap import base
 from deap import creator
 from deap import tools
 
-import random
-import numpy
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import zoo
 import elitism
+import zoo
 
 # константы генетического алгоритма:
 POPULATION_SIZE = 50  # размер популяции
@@ -44,6 +43,7 @@ toolbox.register("individualCreator", tools.initRepeat, creator.Individual, tool
 # создание оператора популяции для генерации списка индивидуумов:
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.individualCreator)
 
+
 # вычисление фитнес-оценки:
 def zooClassificationAccuracy(individual):
     numFeaturesUsed = sum(individual)
@@ -52,6 +52,7 @@ def zooClassificationAccuracy(individual):
     else:
         accuracy = zoo.getMeanAccuracy(individual)
         return accuracy - FEATURE_PENALTY_FACTOR * numFeaturesUsed,  # возвращает кортеж
+
 
 toolbox.register("evaluate", zooClassificationAccuracy)
 
@@ -65,7 +66,8 @@ toolbox.register("mate", tools.cxTwoPoint)
 
 # мутация переключения бита:
 # indpb: независимая вероятность переключения каждого атрибута
-toolbox.register("mutate", tools.mutFlipBit, indpb=1.0/len(zoo))
+toolbox.register("mutate", tools.mutFlipBit, indpb=1.0 / len(zoo))
+
 
 # поток генетического алгоритма:
 def main():
@@ -101,6 +103,7 @@ def main():
     plt.ylabel('Максимальная / Средняя фитнес-оценка')
     plt.title('Максимальная и средняя фитнес-оценка по поколениям')
     plt.show()
+
 
 if __name__ == "__main__":
     main()

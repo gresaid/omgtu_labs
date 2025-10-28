@@ -1,12 +1,11 @@
+import random
+
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
 from deap import base
 from deap import creator
 from deap import tools
-
-import random
-import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 import elitism
 
@@ -34,9 +33,11 @@ creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 # создание класса Individual на основе списка:
 creator.create("Individual", list, fitness=creator.FitnessMin)
 
+
 # вспомогательная функция для создания случайных вещественных чисел в заданном диапазоне [low, up]
 def randomFloat(low, up):
     return [random.uniform(l, u) for l, u in zip([low] * DIMENSIONS, [up] * DIMENSIONS)]
+
 
 # создание оператора для генерации случайных чисел в заданном диапазоне и измерении:
 toolbox.register("attrFloat", randomFloat, BOUND_LOW, BOUND_UP)
@@ -47,19 +48,23 @@ toolbox.register("individualCreator", tools.initIterate, creator.Individual, too
 # создание оператора популяции для генерации списка индивидуумов:
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.individualCreator)
 
+
 # функция Eggholder как фитнес-функция для индивидуума:
 def eggholder(individual):
     x = individual[0]
     y = individual[1]
-    f = (-(y + 47.0) * np.sin(np.sqrt(abs(x/2.0 + (y + 47.0)))) - x * np.sin(np.sqrt(abs(x - (y + 47.0)))))
+    f = (-(y + 47.0) * np.sin(np.sqrt(abs(x / 2.0 + (y + 47.0)))) - x * np.sin(np.sqrt(abs(x - (y + 47.0)))))
     return f,  # возвращает кортеж
+
 
 toolbox.register("evaluate", eggholder)
 
 # генетические операторы:
 toolbox.register("select", tools.selTournament, tournsize=2)
 toolbox.register("mate", tools.cxSimulatedBinaryBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR)
-toolbox.register("mutate", tools.mutPolynomialBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR, indpb=1.0/DIMENSIONS)
+toolbox.register("mutate", tools.mutPolynomialBounded, low=BOUND_LOW, up=BOUND_UP, eta=CROWDING_FACTOR,
+                 indpb=1.0 / DIMENSIONS)
+
 
 # поток генетического алгоритма:
 def main():
@@ -76,7 +81,7 @@ def main():
 
     # выполнение потока генетического алгоритма с элитизмом:
     population, logbook = elitism.eaSimpleWithElitism(population, toolbox, cxpb=P_CROSSOVER, mutpb=P_MUTATION,
-                                              ngen=MAX_GENERATIONS, stats=stats, halloffame=hof, verbose=True)
+                                                      ngen=MAX_GENERATIONS, stats=stats, halloffame=hof, verbose=True)
 
     # вывод информации о лучшем найденном решении:
     best = hof.items[0]
@@ -95,6 +100,7 @@ def main():
     plt.title('Минимальная и средняя фитнес-оценка по поколениям')
 
     plt.show()
+
 
 if __name__ == "__main__":
     main()
