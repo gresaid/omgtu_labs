@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Pharmacy Analytics UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind via Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.20.0/tabler-icons.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    .tab-active { background: rgba(59,130,246,.1); border-color: rgb(59,130,246); }
+    .cell-pre { white-space: pre; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto p-4 md:p-8">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-3xl font-bold">Pharmacy Analytics UI</h1>
+        <p class="text-sm text-slate-500 mt-1">
+          Вкладки для каждого эндпоинта FastAPI. Укажите базовый URL (по умолчанию — текущий origin).
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <input id="baseUrl" class="w-[320px] rounded-xl border px-3 py-2"
+               placeholder="http://localhost:8000" />
+        <button id="applyBtn"
+                class="inline-flex items-center gap-2 rounded-xl bg-blue-600 text-white px-4 py-2 hover:bg-blue-700">
+          <i class="ti ti-check"></i><span>Применить</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+      <!-- Sidebar -->
+      <aside class="md:col-span-4 lg:col-span-3">
+        <div class="rounded-2xl border bg-white shadow-sm">
+          <div class="p-4 border-b">
+            <div class="text-base font-semibold">Эндпоинты</div>
+          </div>
+          <nav id="tabsNav" class="p-2 flex flex-col gap-1"></nav>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <main class="md:col-span-8 lg:col-span-9">
+        <section id="panel" class="space-y-4">
+          <!-- Filled dynamically -->
+        </section>
+      </main>
+    </div>
+
+    <footer class="text-xs text-slate-500 pt-6">
+      Подсказка: если API на другом домене/порту, включите CORS в FastAPI
+      (<code>fastapi.middleware.cors</code>) или открывайте UI с того же origin.
+    </footer>
+  </div>
+
+<script>
+const ENDPOINTS = [
+  { key: "forms-breakdown", title: "1) Forms breakdown", path: "/analytics/forms-breakdown", description: "Разбивка по формам выпуска." },
+  { key: "valid-phones", title: "2) Patients: valid phones", path: "/analytics/patients/valid-phones", description: "Пациенты с валидными телефонами (>=10 цифр)." },
+  { key: "total-sold-gt2", title: "3) Products: total sold > 2", path: "/analytics/products/total-sold-gt2" },
+  { key: "avg-days-to-expiry", title: "4) Products: avg days to expiry", path: "/analytics/products/avg-days-to-expiry" },
+  { key: "hourly-invoices", title: "5) Sales: hourly invoices", path: "/analytics/sales/hourly-invoices" },
+  { key: "expired-qty", title: "6) Expired qty by branch/product", path: "/analytics/expired/qty-by-branch-product" },
+  { key: "top-products-by-branch", title: "7) Top products by branch", path: "/analytics/top-products-by-branch" },
+  { key: "rolling-7d", title: "8) Revenue: rolling 7d", path: "/analytics/revenue/daily-rolling-7d" },
+  { key: "branch-product-share", title: "9) Revenue: branch/product share", path: "/analytics/revenue/branch-product-share" },
+  { key: "daily-with-calendar", title: "10) Revenue: daily with calendar", path: "/analytics/revenue/daily-with-calendar" },
+  { key: "7d-expiry-grid", title: "11) Batches: 7d expiry grid", path: "/analytics/batches/7d-expiry-grid" },
+  { key: "days-available-by-batch", title: "12) Products: days available by batch", path: "/analytics/products/days-available-by-batch" },
+  { key: "prices-percentiles-by-form", title: "13) Prices: percentiles by form", path: "/analytics/prices/percentiles-by-form" },
+  { key: "patients-retention", title: "14) Cohorts: patients retention", path: "/analytics/cohorts/patients-retention" },
+  { key: "branch-month-kpis-last3", title: "15) Branch × Month: KPIs (last 3)", path: "/analytics/branch-month/kpis-last-3-months" },
+  { key: "health", title: "Health", path: "/health", description: "Проверка доступности API." },
+];
+
+let state = {
+  baseUrl: location.origin,
+  activeKey: ENDPOINTS[0].key,
+  charts: {}, // key -> Chart instance
+};
+
+const byId = (id) => document.getElementById(id);
+
+function init() {
+  const baseInput = byId('baseUrl');
+  baseInput.value = state.baseUrl;
+
+  // Build tabs
+  const nav = byId('tabsNav');
+  ENDPOINTS.forEach(ep => {
+    const btn = document.createElement('button');
+    btn.className = "text-left px-3 py-2 rounded-xl border hover:bg-slate-50 transition";
+    btn.dataset.key = ep.key;
+    btn.innerHTML = `
+      <div class="text-sm font-medium">${escapeHtml(ep.title)}</div>
+      ${ep.description ? `<div class="text-xs text-slate-500">${escapeHtml(ep.description)}</div>` : ""}
+    `;
+    btn.addEventListener('click', () => {
+      state.activeKey = ep.key;
+      updateActiveTab();
+      renderPanel();
+    });
+    nav.appendChild(btn);
+  });
+  updateActiveTab();
+
+  byId('applyBtn').addEventListener('click', () => {
+    state.baseUrl = baseInput.value.trim() || state.baseUrl;
+    // Re-fetch current tab
+    renderPanel();
+  });
+
+  // Initial render
+  renderPanel();
+}
+
+function updateActiveTab() {
+  const nav = byId('tabsNav');
+  Array.from(nav.children).forEach(child => {
+    child.classList.remove('tab-active');
+    if (child.dataset.key === state.activeKey) {
+      child.classList.add('tab-active');
+    }
+  });
+}
+
+function renderPanel() {
+  const ep = ENDPOINTS.find(e => e.key === state.activeKey);
+  const container = byId('panel');
+  container.innerHTML = `
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-xl font-semibold">${escapeHtml(ep.title)}</div>
+        ${ep.description ? `<p class="text-sm text-slate-500 mt-1">${escapeHtml(ep.description)}</p>` : ""}
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="refreshBtn" class="rounded-xl border px-4 py-2 hover:bg-slate-50">
+          <i class="ti ti-refresh"></i> Refresh
+        </button>
+      </div>
+    </div>
+
+    <div id="errorBox" class="hidden rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700"></div>
+
+    <div class="rounded-2xl border bg-white shadow-sm">
+      <div class="p-4 border-b font-semibold">Данные</div>
+      <div id="tableWrap" class="p-4 text-sm">Загрузка…</div>
+    </div>
+
+    <div id="chartsWrap"></div>
+
+    <div class="rounded-2xl border bg-white shadow-sm">
+      <div class="p-4 border-b font-semibold">Raw JSON</div>
+      <div class="p-4">
+        <pre id="rawJson" class="text-xs overflow-auto max-h-80 p-3 bg-slate-50 rounded-xl">—</pre>
+      </div>
+    </div>
+  `;
+
+  byId('refreshBtn').addEventListener('click', () => fetchAndRender(ep));
+  fetchAndRender(ep);
+}
+
+async function fetchAndRender(ep) {
+  const errorBox = byId('errorBox');
+  const tableWrap = byId('tableWrap');
+  const rawJson = byId('rawJson');
+  const chartsWrap = byId('chartsWrap');
+
+  errorBox.classList.add('hidden');
+  tableWrap.textContent = 'Загрузка…';
+  rawJson.textContent = '—';
+  chartsWrap.innerHTML = '';
+
+  try {
+    const url = state.baseUrl.replace(/\/$/, '') + ep.path;
+    const res = await fetch(url);
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`${res.status} ${res.statusText}: ${txt}`);
+    }
+    const data = await res.json();
+
+    const rows = Array.isArray(data) ? data : data ? [data] : [];
+    rawJson.textContent = JSON.stringify(data, null, 2);
+    renderTable(tableWrap, rows);
+    renderCharts(chartsWrap, ep.key, rows);
+  } catch (err) {
+    errorBox.textContent = String(err.message || err);
+    errorBox.classList.remove('hidden');
+    tableWrap.textContent = 'Нет данных.';
+  }
+}
+
+function renderTable(host, rows) {
+  if (!rows || rows.length === 0) {
+    host.innerHTML = `<div class="text-slate-500 text-sm">Нет данных.</div>`;
+    return;
+  }
+  // Collect all keys
+  const keys = Array.from(
+    rows.reduce((set, r) => {
+      Object.keys(r || {}).forEach(k => set.add(k));
+      return set;
+    }, new Set())
+  );
+
+  const thead = `
+    <thead class="sticky top-0 bg-white">
+      <tr>
+        ${keys.map(k => `<th class="text-left font-semibold px-2 py-2 border-b">${escapeHtml(k)}</th>`).join('')}
+      </tr>
+    </thead>
+  `;
+
+  const tbody = `
+    <tbody>
+      ${rows.map(r => `
+        <tr class="border-b hover:bg-slate-50">
+          ${keys.map(k => `<td class="px-2 py-2 align-top cell-pre">${escapeHtml(formatCell(r?.[k]))}</td>`).join('')}
+        </tr>
+      `).join('')}
+    </tbody>
+  `;
+
+  host.innerHTML = `
+    <div class="overflow-auto w-full">
+      <table class="w-full text-sm">${thead}${tbody}</table>
+    </div>
+  `;
+}
+
+function renderCharts(host, endpointKey, rows) {
+  // destroy previous chart instances for this key
+  if (state.charts[endpointKey]) {
+    try { state.charts[endpointKey].destroy(); } catch {}
+    state.charts[endpointKey] = null;
+  }
+
+  if (!rows || rows.length === 0) return;
+
+  const has = (obj, ks) => ks.every(k => Object.prototype.hasOwnProperty.call(obj, k));
+
+  // 5) hourly-invoices: bar with invoices_count & line_amount per hour
+  if (endpointKey === 'hourly-invoices' && has(rows[0], ['hour_of_day'])) {
+    const card = chartCard(host, 'Hourly invoices & line amount');
+    const ctx = card.canvas.getContext('2d');
+    const labels = rows.map(r => String(r.hour_of_day));
+    const invoices = rows.map(r => Number(r.invoices_count || 0));
+    const amount = rows.map(r => Number(r.line_amount || 0));
+
+    state.charts[endpointKey] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Invoices', data: invoices },
+          { label: 'Line amount', data: amount },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { x: { stacked: false }, y: { beginAtZero: true } },
+      }
+    });
+    return;
+  }
+
+  // 8) rolling-7d: line with amount & rolling_7d_amount
+  if (endpointKey === 'rolling-7d' && has(rows[0], ['d'])) {
+    const card = chartCard(host, 'Daily revenue & 7d rolling sum');
+    const ctx = card.canvas.getContext('2d');
+    const labels = rows.map(r => String(r.d));
+    const amount = rows.map(r => Number(r.amount || 0));
+    const rolling = rows.map(r => Number(r.rolling_7d_amount || 0));
+
+    state.charts[endpointKey] = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Amount', data: amount, tension: 0.25 },
+          { label: 'Rolling 7d', data: rolling, tension: 0.25 },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    return;
+  }
+
+  // 10) daily-with-calendar: line with amount
+  if (endpointKey === 'daily-with-calendar' && has(rows[0], ['d', 'amount'])) {
+    const card = chartCard(host, 'Daily revenue (calendar-complete)');
+    const ctx = card.canvas.getContext('2d');
+    const labels = rows.map(r => String(r.d));
+    const amount = rows.map(r => Number(r.amount || 0));
+
+    state.charts[endpointKey] = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{ label: 'Amount', data: amount, tension: 0.25 }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
+}
+
+function chartCard(host, title) {
+  const wrap = document.createElement('div');
+  wrap.className = 'rounded-2xl border bg-white shadow-sm';
+  wrap.innerHTML = `
+    <div class="p-4 border-b font-semibold">${escapeHtml(title)}</div>
+    <div class="p-4">
+      <div class="h-80"><canvas></canvas></div>
+    </div>
+  `;
+  host.appendChild(wrap);
+  return { card: wrap, canvas: wrap.querySelector('canvas') };
+}
+
+function formatCell(value) {
+  if (value === null || value === undefined) return '—';
+  if (typeof value === 'object') return JSON.stringify(value, null, 2);
+  return String(value);
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
