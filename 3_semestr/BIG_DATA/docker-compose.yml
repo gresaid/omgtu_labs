@@ -1,0 +1,15 @@
+services:
+  greenplum:
+    image: lyasper/greenplum:6
+    container_name: greenplum
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      MASTER_DATA_DIRECTORY: /data/master/gpseg-1
+    volumes:
+      - gp-data:/data
+    shm_size: "1g"
+
+volumes:
+  gp-data:
