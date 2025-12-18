@@ -115,3 +115,10 @@ SELECT
   sum((city_name   is not null)::int) as with_city,
   sum((street_name is not null)::int) as with_street
 FROM dm.dm_transactions_denorm;
+
+
+
+Нормализация кода (убрать всё кроме цифр + добить нулями до 13)
+ALTER TABLE trans_sch.transactions
+  ALTER COLUMN address_code TYPE bpchar(13)
+  USING rpad(regexp_replace(address_code, '\D', '', 'g'), 13, '0')::bpchar(13);
