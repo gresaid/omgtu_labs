@@ -10,6 +10,16 @@ services:
     volumes:
       - gp-data:/data
     shm_size: "1g"
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    restart: unless-stopped
+    ports:
+      - "8123:8123"
+    environment:
+      CLICKHOUSE_USER: usr
+      CLICKHOUSE_PASSWORD: pwd123
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
 
 volumes:
   gp-data:
